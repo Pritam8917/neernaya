@@ -25,7 +25,7 @@ export function Navbar() {
           </Link>
 
           {/* TRUE CENTER MENU */}
-          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-10 px-8 py-4 rounded-full bg-black/90 border border-white/10 shadow-lg backdrop-blur-xl">
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-10 px-8 py-4 rounded-full bg-black border border-white/20 shadow-lg backdrop-blur-2xl">
             <Link
               href="/"
               className="text-white hover:text-blue-400 transition font-medium"
