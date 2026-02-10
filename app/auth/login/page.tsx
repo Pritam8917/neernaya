@@ -156,7 +156,7 @@ export default function Login() {
               <Button
                 type='submit'
                 disabled={isLoading}
-                className='w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 hover:opacity-90 font-semibold'
+                className='w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 hover:opacity-90 font-semibold py-5 flex items-center justify-center cursor-pointer transition'
               >
                 {isLoading ? (
                   <>

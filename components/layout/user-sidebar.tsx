@@ -16,7 +16,7 @@ interface UserSidebarProps {
   userName?: string
 }
 
-export function UserSidebar({ userName = 'User' }: UserSidebarProps) {
+export function UserSidebar({ userName = 'Rahul Sharma' }: UserSidebarProps) {
 
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
@@ -52,10 +52,10 @@ export function UserSidebar({ userName = 'User' }: UserSidebarProps) {
           left-0
           h-[calc(90vh-80px)] md:h-screen
           w-72
-          bg-black/90
+          bg-[#0A0A0A]
           backdrop-blur-2xl
           transition-transform duration-300
-          z-40 md:z-0 pt-9 px-3
+          z-40 md:z-0 pt-13 px-3
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}
       >
@@ -81,7 +81,7 @@ export function UserSidebar({ userName = 'User' }: UserSidebarProps) {
                   {userName}
                 </p>
                 <p className="text-cyan-400/70 text-xs">
-                  NeerNaya User
+                  rahul@gmail.com
                 </p>
               </div>
 
@@ -142,7 +142,7 @@ export function UserSidebar({ userName = 'User' }: UserSidebarProps) {
 
           </nav>
           {/* LOGOUT */}
-          <div className="p-5 border-t border-white/10">
+          <div className="pt-5 pb-4 border-t border-white/10">
 
             <Button
               variant="outline"
@@ -153,7 +153,7 @@ export function UserSidebar({ userName = 'User' }: UserSidebarProps) {
                 hover:bg-red-500/10
                 hover:border-red-400/30
                 hover:text-red-400
-                text-slate-300 cursor-pointer
+                text-slate-300 cursor-pointer 
               "
               onClick={() => setIsOpen(false)}
             >

@@ -4,6 +4,7 @@ import { Navbar } from '@/components/layout/navbar'
 import { UserSidebar } from '@/components/layout/user-sidebar'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 import {
   LineChart,
@@ -19,7 +20,6 @@ import {
 
 export default function Devices() {
 
-  // KPI DATA
   const currentValues = [
     { name: 'pH', value: 7.2 },
     { name: 'Turbidity', value: 1.1 },
@@ -31,7 +31,6 @@ export default function Devices() {
     { name: 'Salinity', value: 0.6 },
   ]
 
-  // TIME SERIES DATA
   const trendData = [
     { time: '10:00', ph: 7.1, tds: 300 },
     { time: '10:05', ph: 7.2, tds: 310 },
@@ -42,11 +41,11 @@ export default function Devices() {
   ]
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#0A0A0A] text-white">
 
       <Navbar />
 
-      <main className="pt-20">
+      <main  className="min-h-screen bg-[#0A0A0A] text-white pt-20">
 
         <div className="flex">
 
@@ -54,12 +53,17 @@ export default function Devices() {
             <UserSidebar />
           </div>
 
-          <div className="flex-1 ml-86 pr-8 py-12">
+          <div className="flex-1 ml-72 px-8 py-10">
 
             {/* HEADER */}
-            <div className="flex justify-between items-center mb-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="flex flex-col md:flex-row md:justify-between md:items-center mb-10 gap-4"
+            >
               <div>
-                <h1 className="text-4xl font-bold mb-2">
+                <h1 className="text-3xl md:text-4xl font-bold mb-2">
                   Water Monitoring Dashboard
                 </h1>
                 <p className="text-gray-400">
@@ -67,32 +71,54 @@ export default function Devices() {
                 </p>
               </div>
 
-              <Button className="bg-cyan-500 hover:bg-cyan-600 text-black">
+              <Button className="bg-cyan-500 hover:bg-cyan-600 text-black cursor-pointer flex items-center gap-2" variant="default">
                 <Plus size={18} className="mr-2" />
                 Add Device
               </Button>
-            </div>
+            </motion.div>
 
             {/* KPI CARDS */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.08
+                  }
+                }
+              }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10"
+            >
               {currentValues.map((item, i) => (
-                <div
+                <motion.div
                   key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 }
+                  }}
+                  whileHover={{ scale: 1.04 }}
                   className="bg-white/5 border border-white/10 rounded-xl p-5"
                 >
                   <p className="text-sm text-gray-400">{item.name}</p>
                   <p className="text-2xl font-semibold text-cyan-300">
                     {item.value}
                   </p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* CHART SECTION */}
             <div className="grid lg:grid-cols-2 gap-8">
 
               {/* LINE CHART */}
-              <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 }}
+                className="bg-white/5 border border-white/10 rounded-xl p-6"
+              >
                 <h3 className="mb-4 text-lg font-semibold">
                   Water Quality Trend
                 </h3>
@@ -104,25 +130,20 @@ export default function Devices() {
                       <XAxis dataKey="time" stroke="#9ca3af" />
                       <YAxis stroke="#9ca3af" />
                       <Tooltip />
-                      <Line
-                        type="monotone"
-                        dataKey="ph"
-                        stroke="#22d3ee"
-                        strokeWidth={2}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="tds"
-                        stroke="#38bdf8"
-                        strokeWidth={2}
-                      />
+                      <Line type="monotone" dataKey="ph" stroke="#22d3ee" strokeWidth={2}/>
+                      <Line type="monotone" dataKey="tds" stroke="#38bdf8" strokeWidth={2}/>
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
-              </div>
+              </motion.div>
 
               {/* BAR CHART */}
-              <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.4 }}
+                className="bg-white/5 border border-white/10 rounded-xl p-6"
+              >
                 <h3 className="mb-4 text-lg font-semibold">
                   Current Parameter Snapshot
                 </h3>
@@ -138,7 +159,7 @@ export default function Devices() {
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
-              </div>
+              </motion.div>
 
             </div>
 
@@ -147,6 +168,7 @@ export default function Devices() {
         </div>
 
       </main>
+
     </div>
   )
 }

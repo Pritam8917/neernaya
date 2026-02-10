@@ -15,7 +15,7 @@ export default function AdminUsers() {
     {
       id: 1,
       name: "Rahul Sharma",
-      email: "rahul.sharma@example.com",
+      email: "rahul@example.com",
       role: "user",
       status: "Active",
       joinedDate: "2024-01-15",
@@ -23,8 +23,8 @@ export default function AdminUsers() {
     },
     {
       id: 2,
-      name: "Priya Verma",
-      email: "priya.verma@example.com",
+      name: "Satyabrata Das",
+      email: "satyabrata@example.com",
       role: "admin",
       status: "Active",
       joinedDate: "2023-11-20",
@@ -33,7 +33,7 @@ export default function AdminUsers() {
     {
       id: 3,
       name: "Amit Kumar",
-      email: "amit.kumar@example.com",
+      email: "amit@example.com",
       role: "user",
       status: "Inactive",
       joinedDate: "2024-02-01",
@@ -42,7 +42,7 @@ export default function AdminUsers() {
     {
       id: 4,
       name: "Sneha Reddy",
-      email: "sneha.reddy@example.com",
+      email: "sneha@example.com",
       role: "user",
       status: "Active",
       joinedDate: "2024-01-10",
@@ -51,7 +51,7 @@ export default function AdminUsers() {
     {
       id: 5,
       name: "Arjun Patel",
-      email: "arjun.patel@example.com",
+      email: "arjun@example.com",
       role: "user",
       status: "Active",
       joinedDate: "2024-02-05",

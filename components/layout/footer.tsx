@@ -2,10 +2,10 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-
+import { Instagram, Linkedin } from 'lucide-react'
 export function Footer() {
   return (
-    <footer className="relative bg-black border-t border-white/10">
+    <footer className="relative bg-[#030303] border-t border-white/10">
 
       {/* Glow Top Line */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-cyan-400/40 to-transparent" />
@@ -18,7 +18,6 @@ export function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-
           className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-14"
         >
 
@@ -64,22 +63,16 @@ export function Footer() {
             <h4 className="font-semibold text-white mb-4">Support</h4>
 
             <ul className="space-y-3 text-sm">
-              <li>
-                <a className="text-slate-400 hover:text-cyan-400 transition">
-                  Setup Guide
-                </a>
+              <li className="text-slate-400 hover:text-cyan-400 transition cursor-pointer">
+                Setup Guide
               </li>
 
-              <li>
-                <a className="text-slate-400 hover:text-cyan-400 transition">
-                  Contact Support
-                </a>
+              <li className="text-slate-400 hover:text-cyan-400 transition cursor-pointer">
+                Contact Support
               </li>
 
-              <li>
-                <a className="text-slate-400 hover:text-cyan-400 transition">
-                  Email Assistance
-                </a>
+              <li className="text-slate-400 hover:text-cyan-400 transition cursor-pointer">
+                Email Assistance
               </li>
             </ul>
           </div>
@@ -89,22 +82,16 @@ export function Footer() {
             <h4 className="font-semibold text-white mb-4">Legal</h4>
 
             <ul className="space-y-3 text-sm">
-              <li>
-                <a className="text-slate-400 hover:text-cyan-400 transition">
-                  Privacy Policy
-                </a>
+              <li className="text-slate-400 hover:text-cyan-400 transition cursor-pointer">
+                Privacy Policy
               </li>
 
-              <li>
-                <a className="text-slate-400 hover:text-cyan-400 transition">
-                  Terms of Service
-                </a>
+              <li className="text-slate-400 hover:text-cyan-400 transition cursor-pointer">
+                Terms of Service
               </li>
 
-              <li>
-                <a className="text-slate-400 hover:text-cyan-400 transition">
-                  Data Protection
-                </a>
+              <li className="text-slate-400 hover:text-cyan-400 transition cursor-pointer">
+                Data Protection
               </li>
             </ul>
           </div>
@@ -114,9 +101,29 @@ export function Footer() {
         {/* BOTTOM BAR */}
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-6">
 
+          {/* LEFT TEXT */}
           <p className="text-slate-500 text-sm">
             © 2026 NeerNaya Water Intelligence Platform
           </p>
+
+          {/* SOCIAL ICONS */}
+          <div className="flex items-center gap-5">
+
+            <Link
+              href="#"
+              className="text-slate-400 hover:text-cyan-400 transition"
+            >
+              <Instagram size={20} />
+            </Link>
+
+            <Link
+              href="#"
+              className="text-slate-400 hover:text-cyan-400 transition"
+            >
+              <Linkedin size={20} />
+            </Link>
+
+          </div>
 
         </div>
 

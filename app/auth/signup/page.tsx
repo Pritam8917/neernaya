@@ -50,7 +50,7 @@ export default function Signup() {
                 <Label htmlFor="firstname">First Name</Label>
                 <Input
                   id="firstname"
-                  placeholder="Tyler"
+                  placeholder="Rahul"
                   type="text"
                   className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
                 />
@@ -60,7 +60,7 @@ export default function Signup() {
                 <Label htmlFor="lastname">Last Name</Label>
                 <Input
                   id="lastname"
-                  placeholder="Durden"
+                  placeholder="Sharma"
                   type="text"
                   className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
                 />
@@ -71,7 +71,7 @@ export default function Signup() {
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                placeholder="projectmayhem@fc.com"
+                placeholder="you@example.com"
                 type="email"
                 className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
               />
@@ -87,7 +87,7 @@ export default function Signup() {
               />
             </LabelInputContainer>
 
-            <Button className="w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 hover:opacity-90 transition font-semibold">
+            <Button className="w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 hover:opacity-90 transition font-semibold py-5 flex items-center justify-center cursor-pointer">
               Create Account
             </Button>
           </form>

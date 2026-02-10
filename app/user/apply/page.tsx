@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { Navbar } from "@/components/layout/navbar";
 import { UserSidebar } from "@/components/layout/user-sidebar";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+
 import {
   FlaskConical,
   Waves,
@@ -77,7 +79,7 @@ export default function Apply() {
 
   const toggleParameter = (id: string) => {
     setSelectedParams((prev) =>
-      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id],
+      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
     );
   };
 
@@ -89,7 +91,6 @@ export default function Apply() {
 
     setIsSubmitting(true);
     try {
-      // Simulated API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
       router.push("/user/onboarding?step=2");
     } finally {
@@ -98,69 +99,78 @@ export default function Apply() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-[#0A0A0A] text-white">
       <Navbar />
+
       <div className="flex pt-20">
+        {/* SIDEBAR — NO ANIMATION */}
         <div className="fixed left-0 top-20 h-[calc(100vh-5rem)] w-64 border-r border-white/10 bg-black z-40">
           <UserSidebar />
         </div>
-        <div className="flex-1 relative overflow-hidden">
-          {/* Subtle Cyan Glow */}
-          <div className="pointer-events-none absolute inset-0 -z-10">
-            <div className="absolute -top-72 left-1/2 -translate-x-1/2 w-175 h-175 bg-black blur-[200px] rounded-full" />
-          </div>
 
-          <div className="max-w-5xl ml-96 pr-8 py-12">
-            {/* Header */}
-            <div className="mb-12">
+        {/* MAIN CONTENT */}
+        <div className="flex-1 relative overflow-hidden ml-72 px-20 py-10" >
+
+
+          {/* Page Animation Wrapper */}
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            {/* HEADER */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              className="mb-12"
+            >
               <h1 className="text-4xl font-bold mb-4 tracking-tight">
                 Configure Water Monitoring
               </h1>
 
               <p className="text-gray-400 max-w-xl text-lg">
-                Select water quality parameters to monitor using NeerNaya IoT
-                smart sensors.
+                Select water quality parameters to monitor using NeerNaya IoT smart sensors.
               </p>
-            </div>
+            </motion.div>
 
-            {/* Parameter Grid */}
+            {/* PARAM GRID */}
             <div className="grid md:grid-cols-2 gap-6 mb-12">
-              {parameters.map((param) => {
+              {parameters.map((param, index) => {
                 const Icon = param.icon;
                 const selected = selectedParams.includes(param.id);
 
                 return (
-                  <div
+                  <motion.div
                     key={param.id}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: 0.15 + index * 0.05,
+                      duration: 0.4,
+                    }}
+                    whileHover={{ y: -6, scale: 1.02 }}
                     onClick={() => toggleParameter(param.id)}
                     className={`
-                    cursor-pointer
-                    relative
-                    rounded-2xl
-                    border
-                    p-7
-                    transition-all duration-300
-                    backdrop-blur-xl
-
-                    ${
-                      selected
-                        ? "border-cyan-400 bg-cyan-500/10 shadow-[0_0_35px_rgba(34,211,238,0.15)]"
-                        : "border-white/10 bg-white/5 hover:border-cyan-400/40"
-                    }
-                  `}
+                      cursor-pointer relative rounded-2xl border p-7
+                      transition-all duration-300 backdrop-blur-xl
+                      ${
+                        selected
+                          ? "border-cyan-400 bg-cyan-500/10 shadow-[0_0_35px_rgba(34,211,238,0.15)]"
+                          : "border-white/10 bg-white/5 hover:border-cyan-400/40"
+                      }
+                    `}
                   >
                     <div className="flex gap-5 items-start">
-                      <div
-                        className={`p-3 rounded-xl ${selected ? "bg-cyan-500/20" : "bg-white/5"}`}
-                      >
+                      <div className={`p-3 rounded-xl ${selected ? "bg-cyan-500/20" : "bg-white/5"}`}>
                         <Icon className="text-cyan-400" size={26} />
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-semibold mb-2">
-                          {param.name}
-                        </h3>
-
+                        <h3 className="text-lg font-semibold mb-2">{param.name}</h3>
                         <p className="text-gray-400 text-sm leading-relaxed">
                           {param.description}
                         </p>
@@ -170,24 +180,33 @@ export default function Apply() {
                     {selected && (
                       <CheckCircle2 className="absolute top-5 right-5 text-cyan-400" />
                     )}
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
 
-            {/* Selected Counter */}
+            {/* COUNTER */}
             {selectedParams.length > 0 && (
-              <div className=" mb-10 rounded-xl border border-cyan-400/30 bg-cyan-500/10 p-5 flex items-center gap-3">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-10 rounded-xl border border-cyan-400/30 bg-cyan-500/10 p-5 flex items-center gap-3"
+              >
                 <CheckCircle2 className="text-cyan-400" size={22} />
                 <span className="text-white font-medium">
                   {selectedParams.length} parameter
                   {selectedParams.length !== 1 ? "s" : ""} selected
                 </span>
-              </div>
+              </motion.div>
             )}
 
-            {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-5">
+            {/* BUTTONS */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="flex flex-col sm:flex-row gap-5"
+            >
               <Button
                 variant="outline"
                 asChild
@@ -200,7 +219,7 @@ export default function Apply() {
               <Button
                 onClick={handleSubmit}
                 disabled={isSubmitting || selectedParams.length === 0}
-                className=" bg-cyan-500 hover:bg-cyan-600 text-black font-semibold shadow-lg hover:shadow-cyan-500/30 px-8 cursor-pointer disabled:cursor-not-allowed disabled:bg-cyan-500/50 disabled:hover:bg-cyan-500/50 disabled:shadow-none"
+                className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold shadow-lg hover:shadow-cyan-500/30 px-8"
               >
                 {isSubmitting ? (
                   <>
@@ -211,8 +230,9 @@ export default function Apply() {
                   "Continue Setup"
                 )}
               </Button>
-            </div>
-          </div>
+            </motion.div>
+
+          </motion.div>
         </div>
       </div>
     </main>

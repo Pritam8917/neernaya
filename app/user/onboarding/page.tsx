@@ -236,11 +236,11 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-[#0A0A0A] text-white">
       <Navbar />
-      <main className="min-h-screen bg-black text-white pt-20">
+      <main className="min-h-screen bg-[#0A0A0A] text-white pt-20">
         <div className="flex">
-          <div className="fixed left-0 top-20 h-[calc(100vh-5rem)] w-64 border-r border-white/10 bg-black z-40">
+          <div className="fixed left-0 top-20 h-[calc(100vh-5rem)] w-64 border-r border-white/10 bg-[#0A0A0A] z-40">
             <UserSidebar />
           </div>
 

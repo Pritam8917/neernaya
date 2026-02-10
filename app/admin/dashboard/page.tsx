@@ -86,10 +86,10 @@ export default function AdminDashboard() {
 
                   <tbody>
                     {[
-                      { name: 'Rahul Sharma', email: 'rahul.sharma@example.com', params: '5', date: '2 hours ago', status: 'Pending' },
-                      { name: 'Jane Smith', email: 'jane@example.com', params: '3', date: '4 hours ago', status: 'Approved' },
-                      { name: 'Mike Johnson', email: 'mike@example.com', params: '4', date: '1 day ago', status: 'Pending' },
-                      { name: 'Sarah Williams', email: 'sarah@example.com', params: '5', date: '2 days ago', status: 'Rejected' },
+                      { name: 'Rahul Sharma', email: 'rahul@example.com', params: '5', date: '2 hours ago', status: 'Pending' },
+                      { name: 'Ajay Kumar', email: 'ajay@example.com', params: '3', date: '4 hours ago', status: 'Approved' },
+                      { name: 'Birendra Singh', email: 'birendra@example.com', params: '4', date: '1 day ago', status: 'Pending' },
+                      { name: 'Ramkrishna Das', email: 'ramkrishna@example.com', params: '4', date: '2 days ago', status: 'Approved' },
                     ].map((app, idx) => (
 
                       <tr

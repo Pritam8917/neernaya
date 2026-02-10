@@ -17,7 +17,7 @@ interface AdminSidebarProps {
   userRole?: string
 }
 
-export function AdminSidebar({ userRole = 'admin' }: AdminSidebarProps) {
+export function AdminSidebar({ userRole = 'Admin' }: AdminSidebarProps) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -55,7 +55,7 @@ export function AdminSidebar({ userRole = 'admin' }: AdminSidebarProps) {
           bg-[#0A0A0A]
           backdrop-blur-xl
           transition-transform duration-300
-          z-40 md:z-0 pt-6 px-3
+          z-40 md:z-0 pt-13 px-3
           ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}
       >
@@ -73,12 +73,12 @@ export function AdminSidebar({ userRole = 'admin' }: AdminSidebarProps) {
                 flex items-center justify-center
                 text-black font-bold shadow-lg
               ">
-                A
+                S
               </div>
 
               <div>
                 <p className="font-semibold text-white text-sm">
-                  Admin User
+                  Satyabrata Das
                 </p>
                 <p className="text-cyan-400/70 text-xs capitalize">
                   {userRole}
@@ -144,7 +144,7 @@ export function AdminSidebar({ userRole = 'admin' }: AdminSidebarProps) {
           </nav>
 
           {/* Logout */}
-          <div className="p-5 border-t border-white/10">
+          <div className=" border-t border-white/10 pt-5 pb-4">
 
             <Button
               variant="outline"
