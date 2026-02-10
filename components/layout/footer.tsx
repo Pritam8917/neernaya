@@ -83,15 +83,15 @@ export function Footer() {
 
             <ul className="space-y-3 text-sm">
               <li className="text-slate-400 hover:text-cyan-400 transition cursor-pointer">
-                Privacy Policy
+                <Link href="/footer-components/privacy-policy">Privacy Policy</Link>
               </li>
 
               <li className="text-slate-400 hover:text-cyan-400 transition cursor-pointer">
-                Terms of Service
+                <Link href="/footer-components/terms-of-services">Terms of Service</Link>
               </li>
 
               <li className="text-slate-400 hover:text-cyan-400 transition cursor-pointer">
-                Data Protection
+                <Link href="/footer-components/data-protection">Data Protection</Link>
               </li>
             </ul>
           </div>

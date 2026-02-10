@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
+import { usePathname } from "next/navigation"
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const pathname = usePathname();
+  
   return (
     <nav className="sticky top-10 z-50 px-16">
       <div className="relative max-w-8xl mx-auto">
@@ -28,21 +29,21 @@ export function Navbar() {
           <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-10 px-8 py-4 rounded-full bg-black border border-white/20 shadow-lg backdrop-blur-2xl">
             <Link
               href="/"
-              className="text-white hover:text-blue-400 transition font-medium"
+              className={` transition font-medium ${pathname === '/' ? 'text-blue-400' : 'text-white hover:text-blue-400'}`}
             >
               Home
             </Link>
 
             <Link
               href="/services"
-              className="text-white hover:text-blue-400 transition font-medium"
+              className={` transition font-medium ${pathname === '/services' ? 'text-blue-400' : 'text-white hover:text-blue-400'}`}
             >
               Services
             </Link>
 
             <Link
               href="#how-it-works"
-              className="text-white hover:text-blue-400 transition font-medium"
+              className={` transition font-medium ${pathname === '/how-it-works' ? 'text-blue-400' : 'text-white hover:text-blue-400'}`}
             >
              How it Works
             </Link>

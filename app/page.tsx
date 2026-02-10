@@ -119,15 +119,6 @@ export default function Home() {
               />
             </Link>
           </Button>
-
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/10 px-3 py-6"
-          >
-            <Link href="/services">View Parameters</Link>
-          </Button>
         </div>
       </section>
 
