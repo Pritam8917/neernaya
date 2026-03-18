@@ -7,8 +7,6 @@ import { Plus } from "lucide-react";
 import { motion } from "framer-motion";
 import { LoaderOne } from "@/components/ui/loader";
 import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
   XAxis,
@@ -25,7 +23,6 @@ type DeviceData = {
 };
 export default function Devices() {
   const [currentValues, setCurrentValues] = useState<DeviceData[]>([]);
-  const [trendValues, setTrendValues] = useState<DeviceData[]>([]);
   const [loading, setLoading] = useState(true);
   const api = process.env.NEXT_PUBLIC_API_URL!;
 
