@@ -13,14 +13,14 @@ import {
   Waves,
   Beaker,
   Mountain,
-  ShieldCheck,
-  AlertTriangle,
   Wind,
   Droplets,
   CheckCircle2,
   Loader2,
+  Thermometer,
+  Zap,
 } from "lucide-react";
-
+import axios from "axios";
 export default function Apply() {
   const router = useRouter();
   const [selectedParams, setSelectedParams] = useState<string[]>([]);
@@ -52,16 +52,10 @@ export default function Apply() {
       description: "Monitor calcium and magnesium concentration levels",
     },
     {
-      id: "chlorine",
-      icon: ShieldCheck,
-      name: "Chlorine",
-      description: "Measure disinfection chemical levels in water",
-    },
-    {
-      id: "ammonia",
-      icon: AlertTriangle,
-      name: "Ammonia",
-      description: "Detect harmful nitrogen-based contamination",
+      id: "temperature",
+      icon: Thermometer,
+      name: "Temperature",
+      description: "Monitor water temperature changes",
     },
     {
       id: "dissolved-oxygen",
@@ -75,11 +69,17 @@ export default function Apply() {
       name: "Salinity",
       description: "Track salt concentration in water sources",
     },
+    {
+      id: "electrical-conductivity",
+      icon: Zap,
+      name: "Electrical Conductivity",
+      description: "Monitor the ability of water to conduct electricity",
+    },
   ];
-
+  const api = process.env.NEXT_PUBLIC_API_URL;
   const toggleParameter = (id: string) => {
     setSelectedParams((prev) =>
-      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id],
     );
   };
 
@@ -91,8 +91,26 @@ export default function Apply() {
 
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const res = await axios.post(
+        `${api}/user/apply`,
+        {
+          parameters: selectedParams,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      console.log("Apply success:", res.data);
       router.push("/user/onboarding?step=2");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("Apply failed:", error);
+
+      alert(
+        error?.response?.data?.message ||
+          "Something went wrong. Please try again.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -103,15 +121,12 @@ export default function Apply() {
       <Navbar />
 
       <div className="flex pt-20">
-        {/* SIDEBAR */}
         <div className="fixed left-0 top-20 h-[calc(100vh-5rem)] w-64 border-r border-white/10 bg-black z-40">
           <UserSidebar />
         </div>
 
         {/* MAIN CONTENT */}
-        <div className="flex-1 relative overflow-hidden ml-72 px-20 py-10" >
-          
-          {/* Page Animation Wrapper */}
+        <div className="flex-1 relative overflow-hidden ml-72 px-20 py-10">
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
@@ -132,11 +147,11 @@ export default function Apply() {
               </h1>
 
               <p className="text-gray-400 max-w-xl text-lg">
-                Select water quality parameters to monitor using NeerNaya IoT smart sensors.
+                Select water quality parameters to monitor using NeerNaya IoT
+                smart sensors.
               </p>
             </motion.div>
 
-            {/* PARAM GRID */}
             <div className="grid md:grid-cols-2 gap-6 mb-12">
               {parameters.map((param, index) => {
                 const Icon = param.icon;
@@ -164,12 +179,16 @@ export default function Apply() {
                     `}
                   >
                     <div className="flex gap-5 items-start">
-                      <div className={`p-3 rounded-xl ${selected ? "bg-cyan-500/20" : "bg-white/5"}`}>
+                      <div
+                        className={`p-3 rounded-xl ${selected ? "bg-cyan-500/20" : "bg-white/5"}`}
+                      >
                         <Icon className="text-cyan-400" size={26} />
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-semibold mb-2">{param.name}</h3>
+                        <h3 className="text-lg font-semibold mb-2">
+                          {param.name}
+                        </h3>
                         <p className="text-gray-400 text-sm leading-relaxed">
                           {param.description}
                         </p>
@@ -199,7 +218,6 @@ export default function Apply() {
               </motion.div>
             )}
 
-            {/* BUTTONS */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -218,7 +236,7 @@ export default function Apply() {
               <Button
                 onClick={handleSubmit}
                 disabled={isSubmitting || selectedParams.length === 0}
-                className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold shadow-lg hover:shadow-cyan-500/30 px-8"
+                className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold shadow-lg hover:shadow-cyan-500/30 px-8 cursor-pointer disabled:cursor-not-allowed disabled:bg-cyan-500/50 disabled:text-gray-300 disabled:border-cyan-500/20"
               >
                 {isSubmitting ? (
                   <>
@@ -230,7 +248,6 @@ export default function Apply() {
                 )}
               </Button>
             </motion.div>
-
           </motion.div>
         </div>
       </div>

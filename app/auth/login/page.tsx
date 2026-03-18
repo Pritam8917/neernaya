@@ -54,18 +54,26 @@ export default function Login() {
       router.push("/user/devices");
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        setError(err.response?.data?.detail || "Login failed");
+        const status = err.response?.status;
+
+        if (status === 401) {
+          setError("Invalid email or password");
+
+          // 👉 Optional: auto redirect after delay
+          setTimeout(() => {
+            router.push("/auth/signup");
+          }, 1500);
+        } else {
+          setError("Login failed. Please try again.");
+        }
       } else {
         setError("Something went wrong");
       }
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <main className="min-h-screen w-full bg-linear-to-br from-black via-zinc-950 to-zinc-900 flex items-center justify-center px-4 py-16 relative overflow-hidden">
-      
       {/* Background Glow */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-[-20%] left-[-10%] w-150 h-150 bg-blue-500 rounded-full blur-[180px]" />
@@ -111,7 +119,6 @@ export default function Login() {
         {/* Card */}
         <div className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
-
             <LabelInput label="Email Address">
               <Input
                 name="email"

@@ -10,9 +10,17 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState("home");
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
+      const user = localStorage.getItem("user");
+      const token = localStorage.getItem("token");
+
+      if (user || token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
       const section = document.getElementById("how-it-works");
 
       if (!section) return;
@@ -82,12 +90,16 @@ export function Navbar() {
               How it Works
             </Link>
 
-            <Button
-              asChild
-              className="rounded-full bg-white  text-black shadow-md transition px-5 py-2 hover:bg-white/90 font-medium"
-            >
-              <Link href="/auth/login">Login</Link>
-            </Button>
+            {!isLoggedIn ? (
+              <Button
+                asChild
+                className="rounded-full bg-white text-black shadow-md px-5 py-2 hover:bg-white/90 font-medium"
+              >
+                <Link href="/auth/login">Login</Link>
+              </Button>
+            ) : (
+              null
+            )}
           </div>
 
           {/* MOBILE MENU BUTTON */}
@@ -125,20 +137,17 @@ export function Navbar() {
           </Link>
 
           <div className="flex gap-2 pt-2">
-            <Button
-              variant="ghost"
-              asChild
-              className="flex-1 rounded-full text-white hover:bg-white/10"
-            >
-              <Link href="/auth/login">Login</Link>
-            </Button>
-
-            <Button
-              asChild
-              className="flex-1 rounded-full bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              <Link href="/auth/signup">Apply Now</Link>
-            </Button>
+              {!isLoggedIn ? (
+                <>
+                  <Button
+                    variant="ghost"
+                    asChild
+                    className="flex-1 rounded-full text-white hover:bg-white/10"
+                  >
+                    <Link href="/auth/login">Login</Link>
+                  </Button>
+                </>
+              ) : (null)}
           </div>
         </div>
       )}

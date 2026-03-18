@@ -11,13 +11,17 @@ import {
   Shield,
   Cloud,
   Settings,
-  ArrowRight,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { Spotlight } from "@/components/ui/spotlight-new";
 
 export default function Home() {
+  const isLoggedIn =
+    typeof window !== "undefined" &&
+    (!!localStorage.getItem("user") || !!localStorage.getItem("token"));
+    
+  const startRoute = isLoggedIn ? "/user/devices" : "/auth/login";
   const services = [
     {
       icon: Activity,
@@ -109,14 +113,10 @@ export default function Home() {
             className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold px-3 py-6"
           >
             <Link
-              href="/auth/signup"
+              href={startRoute}
               className="text-xl flex items-center gap-2 group"
             >
-              Start Monitoring
-              <ArrowRight
-                size={20}
-                className=" transition-transform duration-300 group-hover:-rotate-30 group-hover:-translate-y-0.5"
-              />
+              {isLoggedIn ? "Go to Dashboard" : "Start Monitoring"}
             </Link>
           </Button>
         </div>
@@ -328,7 +328,11 @@ export default function Home() {
             transition px-8
           "
               >
-                <Link href="/auth/signup">Start Protecting Your Water</Link>
+                <Link href={startRoute}>
+                  {isLoggedIn
+                    ? "Go to Dashboard"
+                    : "Start Protecting Your Water"}
+                </Link>
               </Button>
             </motion.div>
 

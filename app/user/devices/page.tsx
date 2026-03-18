@@ -32,19 +32,17 @@ export default function Devices() {
   useEffect(() => {
     const fetchdeviceData = async () => {
       try {
-        const res = await axios.get(`${api}/user/devices`, {
-          withCredentials: true,
-        });
+        const res = await axios.get(`${api}/telemetry/latest?device_id=1`);
         const value = res.data;
         console.log("API DATA:", value);
 
         setCurrentValues([
           { name: "pH", value: value.ph ?? 0 },
-          { name: "Turbidity", value: value.turbidity ?? 0 },
+          { name: "Turbidity", value: value.turb ?? 0 },
           { name: "TDS", value: value.tds ?? 0 },
           { name: "Hardness", value: value.hardness ?? 0 },
-          { name: "Chlorine", value: value.chlorine ?? 0 },
-          { name: "Ammonia", value: value.ammonia ?? 0 },
+          { name: "Temperature", value: value.temp ?? 0 },
+          {name: "Electrical Conductivity", value: value.ec ?? 0},
           { name: "DO", value: value.do ?? 0 },
           { name: "Salinity", value: value.salinity ?? 0 },
         ]);
@@ -161,9 +159,9 @@ export default function Devices() {
             </motion.div>
 
             {/* CHART SECTION */}
-            <div className="grid lg:grid-cols-2 gap-8">
+            <div>
               {/* LINE CHART */}
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
@@ -217,7 +215,7 @@ export default function Devices() {
                     </ResponsiveContainer>
                   )}
                 </div>
-              </motion.div>
+              </motion.div> */}
 
               {/* BAR CHART */}
               <motion.div
