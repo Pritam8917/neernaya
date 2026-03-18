@@ -30,3 +30,7 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+@font-face {
+  font-family: "CinzelCustom";
+  src: url("/fonts/Cinzel-Black.ttf") format("truetype");
+}

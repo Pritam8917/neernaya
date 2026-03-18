@@ -3,10 +3,9 @@
 import { useState } from "react";
 import { Navbar } from "@/components/layout/navbar";
 import { AdminSidebar } from "@/components/layout/admin-sidebar";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, Shield, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Link from "next/link";
 export default function AdminUsers() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -120,7 +119,6 @@ export default function AdminUsers() {
                       <th className="text-left py-4 px-6">Status</th>
                       <th className="text-left py-4 px-6">Devices</th>
                       <th className="text-left py-4 px-6">Joined</th>
-                      <th className="text-left py-4 px-6">Actions</th>
                     </tr>
                   </thead>
 
@@ -191,27 +189,6 @@ export default function AdminUsers() {
                         {/* Joined */}
                         <td className="py-4 px-6 text-white/60 text-sm">
                           {new Date(user.joinedDate).toLocaleDateString()}
-                        </td>
-
-                        {/* Actions */}
-                        <td className="py-4 px-6">
-                          <div className="flex gap-2">
-                            {user.role !== "admin" && (
-                              <Button
-                                size="sm"
-                                className="bg-cyan-500/20 text-cyan-400 border border-cyan-400/40 hover:bg-cyan-500/30"
-                              >
-                                <Shield size={16} />
-                              </Button>
-                            )}
-
-                            <Button
-                              size="sm"
-                              className="bg-red-500/20 text-red-400 border border-red-400/40 hover:bg-red-500/30"
-                            >
-                              <Trash2 size={16} />
-                            </Button>
-                          </div>
                         </td>
                       </tr>
                     ))}

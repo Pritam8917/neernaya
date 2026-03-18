@@ -103,15 +103,14 @@ export default function Apply() {
       <Navbar />
 
       <div className="flex pt-20">
-        {/* SIDEBAR — NO ANIMATION */}
+        {/* SIDEBAR */}
         <div className="fixed left-0 top-20 h-[calc(100vh-5rem)] w-64 border-r border-white/10 bg-black z-40">
           <UserSidebar />
         </div>
 
         {/* MAIN CONTENT */}
         <div className="flex-1 relative overflow-hidden ml-72 px-20 py-10" >
-
-
+          
           {/* Page Animation Wrapper */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}

@@ -35,22 +35,22 @@ export default function AdminUserDevices({
         { name: "Salinity", value: 0.5, unit: "ppt" },
       ],
     },
-    {
-      id: 2,
-      name: "Smart Air Quality Monitoring System",
-      status: "active" as const,
-      lastUpdated: "1 minute ago",
-      parameters: [
-        { name: "PM2.5", value: 32, unit: "µg/m³" },
-        { name: "PM10", value: 58, unit: "µg/m³" },
-        { name: "CO2", value: 620, unit: "ppm" },
-        { name: "Temperature", value: 28, unit: "°C" },
-        { name: "Humidity", value: 65, unit: "%" },
-        { name: "VOC", value: 0.45, unit: "ppm" },
-        { name: "AQI", value: 82, unit: "" },
-        { name: "Pressure", value: 1008, unit: "hPa" },
-      ],
-    },
+    // {
+    //   id: 2,
+    //   name: "Smart Air Quality Monitoring System",
+    //   status: "active" as const,
+    //   lastUpdated: "1 minute ago",
+    //   parameters: [
+    //     { name: "PM2.5", value: 32, unit: "µg/m³" },
+    //     { name: "PM10", value: 58, unit: "µg/m³" },
+    //     { name: "CO2", value: 620, unit: "ppm" },
+    //     { name: "Temperature", value: 28, unit: "°C" },
+    //     { name: "Humidity", value: 65, unit: "%" },
+    //     { name: "VOC", value: 0.45, unit: "ppm" },
+    //     { name: "AQI", value: 82, unit: "" },
+    //     { name: "Pressure", value: 1008, unit: "hPa" },
+    //   ],
+    // },
   ];
 
   return (

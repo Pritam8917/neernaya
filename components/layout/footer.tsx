@@ -23,7 +23,7 @@ export function Footer() {
 
           {/* BRAND */}
           <div>
-            <h3 className="text-2xl font-bold bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-4">
+            <h3 className="text-2xl font-bold bg-linear-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-4 "style={{ fontFamily: "CinzelCustom" }}>
               NEERNAYA
             </h3>
 

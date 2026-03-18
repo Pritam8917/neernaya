@@ -1,19 +1,46 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import {
-  IconDroplet,
-} from "@tabler/icons-react";
+import { IconDroplet } from "@tabler/icons-react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
+type FormData = {
+  email: string;
+  password: string;
+};
 export default function Signup() {
-  const handleSubmit = (e: React.FormEvent) => {
+  const Router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState<FormData>({
+    email: "",
+    password: "",
+  });
+
+  const api = process.env.NEXT_PUBLIC_API_URL;
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted");
+    setLoading(true);
+
+    try {
+      const response = await axios.post(`${api!}/auth/signup`, {
+        email: form.email,
+        password: form.password,
+      });
+
+      console.log(response.data);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error(error?.response?.data || error.message);
+    } finally {
+      setLoading(false);
+      Router.push("/auth/login");
+    }
   };
 
   return (
@@ -73,7 +100,8 @@ export default function Signup() {
                 id="email"
                 placeholder="you@example.com"
                 type="email"
-                className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
               />
             </LabelInputContainer>
 
@@ -83,12 +111,17 @@ export default function Signup() {
                 id="password"
                 placeholder="••••••••"
                 type="password"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
                 className="bg-white/5 border-white/10 text-white placeholder:text-white/40"
               />
             </LabelInputContainer>
 
-            <Button className="w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 hover:opacity-90 transition font-semibold py-5 flex items-center justify-center cursor-pointer">
-              Create Account
+            <Button
+              disabled={loading}
+              className="w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 py-5"
+            >
+              {loading ? "Creating..." : "Create Account"}
             </Button>
           </form>
         </div>
@@ -97,6 +130,14 @@ export default function Signup() {
   );
 }
 
-function LabelInputContainer({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <div className={cn("flex flex-col space-y-2", className)}>{children}</div>;
+function LabelInputContainer({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex flex-col space-y-2", className)}>{children}</div>
+  );
 }

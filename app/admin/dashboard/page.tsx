@@ -4,8 +4,15 @@ import { Navbar } from '@/components/layout/navbar'
 import { AdminSidebar } from '@/components/layout/admin-sidebar'
 import { StatCard } from '@/components/cards/stat-card'
 import { Users, FileText, Smartphone, TrendingUp } from 'lucide-react'
+// import { useState } from 'react'
 
 export default function AdminDashboard() {
+  // const[dashboardData, setDashboardData] = useState({
+  //   totalUsers: 0,
+  //   pendingApplications: 0,
+  //   activeDevices: 0,
+  //   monthlyRevenue: '₹0',
+  // })
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white">
       <Navbar />
