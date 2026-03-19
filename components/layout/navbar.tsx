@@ -128,18 +128,18 @@ export function Navbar() {
           >
             Home
           </Link>
+          <Link
+            href="/about"
+            className="block text-white hover:text-blue-400 transition"
+          >
+            About
+          </Link>
 
           <Link
             href="/services"
             className="block text-white hover:text-blue-400 transition"
           >
             Services
-          </Link>
-          <Link
-            href="/about"
-            className="block text-white hover:text-blue-400 transition"
-          >
-            About
           </Link>
           <Link
             href="#how-it-works"
