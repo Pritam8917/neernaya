@@ -66,7 +66,7 @@ export default function AboutPage() {
             {
               icon: Building2,
               title: "Company",
-              name: "NEMHANS Solutions Pvt Ltd",
+              name: "NEMHANS Solutions Pvt Ltd, Bhubaneswar, Odisha",
               desc: "NEMHANS Solutions Pvt Ltd specializes in developing intelligent IoT solutions aimed at solving real-world environmental challenges through innovation and technology.",
             },
             {
