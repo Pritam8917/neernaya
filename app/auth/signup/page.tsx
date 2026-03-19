@@ -119,7 +119,7 @@ export default function Signup() {
 
             <Button
               disabled={loading}
-              className="w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 py-5"
+              className="w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 py-5 cursor-pointer"
             >
               {loading ? "Creating..." : "Create Account"}
             </Button>

@@ -58,8 +58,6 @@ export default function Login() {
 
         if (status === 401) {
           setError("Invalid email or password");
-
-          // 👉 Optional: auto redirect after delay
           setTimeout(() => {
             router.push("/auth/signup");
           }, 1500);
@@ -143,19 +141,19 @@ export default function Login() {
               />
             </LabelInput>
 
-            <div className="flex justify-end">
+            {/* <div className="flex justify-end">
               <Link
                 href="#"
                 className="text-sm text-blue-400 hover:text-blue-300"
               >
                 Forgot password?
               </Link>
-            </div>
+            </div> */}
 
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 hover:opacity-90 font-semibold py-5 flex items-center justify-center transition"
+              className="w-full rounded-xl bg-linear-to-r from-blue-600 to-cyan-500 hover:opacity-90 font-semibold py-5 flex items-center justify-center transition cursor-pointer"
             >
               {isLoading ? (
                 <>
@@ -173,7 +171,7 @@ export default function Login() {
               Don&apos;t have an account?{" "}
               <Link
                 href="/auth/signup"
-                className="text-blue-400 hover:text-blue-300"
+                className="text-blue-400 hover:text-blue-300 cursor-pointer"
               >
                 Sign up here
               </Link>

@@ -23,12 +23,15 @@ type DeviceData = {
 };
 export default function Devices() {
   const [currentValues, setCurrentValues] = useState<DeviceData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const api = process.env.NEXT_PUBLIC_API_URL!;
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchdeviceData = async () => {
       try {
+        const api = process.env.NEXT_PUBLIC_API_URL!;
+        
+        // setLoading(true);
+
         const res = await axios.get(`${api}/telemetry/latest?device_id=1`);
         const value = res.data;
         console.log("API DATA:", value);
@@ -51,7 +54,10 @@ export default function Devices() {
     };
 
     fetchdeviceData();
-  }, [api]);
+    const interval = setInterval(fetchdeviceData, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   if (loading) {
     return (
@@ -103,7 +109,7 @@ export default function Devices() {
             </motion.div>
 
             {/* KPI CARDS */}
-            <motion.div
+            {/* <motion.div
               initial="hidden"
               animate="visible"
               variants={{
@@ -115,7 +121,8 @@ export default function Devices() {
                 },
               }}
               className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10"
-            >
+            > */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10" >
               {currentValues.length === 0 ? (
                 <div className="col-span-full flex flex-col items-center justify-center py-16 text-center border border-white/10 rounded-xl bg-white/5">
                   <div className="w-16 h-16 flex items-center justify-center rounded-full bg-cyan-500/10 mb-4">
@@ -153,7 +160,8 @@ export default function Devices() {
                   </motion.div>
                 ))
               )}
-            </motion.div>
+              </div>
+            {/* </motion.div> */}
 
             {/* CHART SECTION */}
             <div>

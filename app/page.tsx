@@ -20,14 +20,14 @@ export default function Home() {
   const isLoggedIn =
     typeof window !== "undefined" &&
     (!!localStorage.getItem("user") || !!localStorage.getItem("token"));
-    
+
   const startRoute = isLoggedIn ? "/user/devices" : "/auth/login";
   const services = [
     {
       icon: Activity,
       title: "Real-Time Water Monitoring",
       description:
-        "Continuously monitor pH, Turbidity, TDS, Hardness, Chlorine, Ammonia, Dissolved Oxygen, and Salinity using IoT sensors.",
+        "Continuously monitor pH, Temperature, Turbidity, TDS, Hardness, Dissolved Oxygen, Electrical Conductivity and Salinity using IoT sensors.",
     },
     {
       icon: Zap,
@@ -86,7 +86,7 @@ export default function Home() {
     },
   ];
   const words =
-    "Monitor pH, Turbidity, TDS, Hardness, Chlorine, Ammonia, Dissolved Oxygen, and Salinity using advanced IoT sensors.";
+    "Monitor pH, Temperature, Turbidity, TDS, Hardness, Dissolved Oxygen, Electrical Conductivity and Salinity using advanced IoT sensors.";
 
   return (
     <main className="min-h-screen bg-linear-to-br  text-white ">
