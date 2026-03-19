@@ -13,12 +13,12 @@ import {
   Waves,
   Beaker,
   Mountain,
-  AlertTriangle,
   Wind,
   Droplets,
   CheckCircle2,
   Loader2,
-  Zap
+  Zap,
+  ThermometerIcon
 } from "lucide-react";
 
 export default function Apply() {
@@ -59,7 +59,7 @@ export default function Apply() {
     },
     {
       id: "temperature",
-      icon: AlertTriangle,
+      icon: ThermometerIcon,
       name: "Temperature",
       description: "Monitor water temperature changes",
     },
