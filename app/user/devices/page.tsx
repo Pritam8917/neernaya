@@ -54,7 +54,7 @@ export default function Devices() {
     };
 
     fetchdeviceData();
-    const interval = setInterval(fetchdeviceData, 3000);
+    const interval = setInterval(fetchdeviceData, 15000);
 
     return () => clearInterval(interval);
   }, []);
