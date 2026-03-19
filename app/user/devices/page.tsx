@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { motion } from "framer-motion";
 import { LoaderOne } from "@/components/ui/loader";
+import { useRef } from "react";
 import {
   BarChart,
   Bar,
@@ -17,36 +18,170 @@ import {
 } from "recharts";
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 type DeviceData = {
   name: string;
   value: number;
 };
+
+type Rule = {
+  max: number;
+  label: string;
+  color: string;
+};
+
 export default function Devices() {
-  const [currentValues, setCurrentValues] = useState<DeviceData[]>([]);
+  const units: Record<string, string> = {
+    pH: "",
+    Turbidity: "NTU",
+    TDS: "ppm",
+    Hardness: "mg/L",
+    Temperature: "°C",
+    "Electrical Conductivity": "µS/cm",
+    DO: "mg/L",
+    Salinity: "ppt",
+  };
+
+  const getStatus = (name: string, value: number) => {
+    const rules: Record<string, Rule[]> = {
+      Turbidity: [
+        { max: 10, label: "Too Low", color: "bg-black" },
+        { max: 30, label: "Not Good", color: "bg-orange-500" },
+        { max: 80, label: "Good", color: "bg-green-500" },
+        { max: 150, label: "Acceptable", color: "bg-yellow-400" },
+        { max: Infinity, label: "Too High", color: "bg-red-500" },
+      ],
+
+      Temperature: [
+        { max: 12, label: "Too Low", color: "bg-black" },
+        { max: 24, label: "Not Good", color: "bg-orange-500" },
+        { max: 32, label: "Good", color: "bg-green-500" },
+        { max: 35, label: "Acceptable", color: "bg-yellow-400" },
+        { max: Infinity, label: "Too High", color: "bg-red-500" },
+      ],
+
+      TDS: [
+        { max: 50, label: "Not Good", color: "bg-orange-500" },
+        { max: 400, label: "Good", color: "bg-green-500" },
+        { max: 1000, label: "Acceptable", color: "bg-yellow-400" },
+        { max: Infinity, label: "Too High", color: "bg-red-500" },
+      ],
+
+      Hardness: [
+        { max: 10, label: "Too Low", color: "bg-black" },
+        { max: 40, label: "Not Good", color: "bg-orange-500" },
+        { max: 150, label: "Good", color: "bg-green-500" },
+        { max: 300, label: "Acceptable", color: "bg-yellow-400" },
+        { max: Infinity, label: "Too High", color: "bg-red-500" },
+      ],
+
+      Salinity: [
+        { max: 0.2, label: "Not Good", color: "bg-orange-500" },
+        { max: 5, label: "Good", color: "bg-green-500" },
+        { max: 10, label: "Acceptable", color: "bg-yellow-400" },
+        { max: Infinity, label: "Too High", color: "bg-red-500" },
+      ],
+
+      "Electrical Conductivity": [
+        { max: 50, label: "Too Low", color: "bg-black" },
+        { max: 150, label: "Not Good", color: "bg-orange-500" },
+        { max: 1500, label: "Good", color: "bg-green-500" },
+        { max: 3000, label: "Acceptable", color: "bg-yellow-400" },
+        { max: Infinity, label: "Too High", color: "bg-red-500" },
+      ],
+
+      DO: [
+        { max: 1, label: "Too Low", color: "bg-black" },
+        { max: 4, label: "Not Good", color: "bg-orange-500" },
+        { max: 8, label: "Good", color: "bg-green-500" },
+        { max: 14, label: "Acceptable", color: "bg-yellow-400" },
+        { max: Infinity, label: "Too High", color: "bg-red-500" },
+      ],
+
+      pH: [
+        { max: 4, label: "Too Low", color: "bg-black" },
+        { max: 6.4, label: "Not Good", color: "bg-orange-500" },
+        { max: 8.5, label: "Good", color: "bg-green-500" },
+        { max: 10, label: "Acceptable", color: "bg-yellow-400" },
+        { max: Infinity, label: "Too High", color: "bg-red-500" },
+      ],
+    };
+
+    const paramRules = rules[name];
+
+    if (!paramRules) {
+      return { label: "Unknown", color: "bg-gray-500" };
+    }
+
+    const status = paramRules.find((r) => value <= r.max) ?? {
+      label: "Unknown",
+      color: "bg-gray-500",
+    };
+
+    return status;
+  };
+
+  const [currentValues, setCurrentValues] = useState<DeviceData[]>(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("prevDeviceData");
+      return stored ? JSON.parse(stored) : [];
+    }
+    return [];
+  });
+
+  const [lastUpdated, setLastUpdated] = useState<string | null>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("lastUpdated");
+    }
+    return null;
+  });
+
   const [loading, setLoading] = useState(false);
+  const prevDataRef = useRef<DeviceData[]>(currentValues);
+  const isFirstLoad = useRef(true);
 
   useEffect(() => {
     const fetchdeviceData = async () => {
       try {
         const api = process.env.NEXT_PUBLIC_API_URL!;
-        
-        // setLoading(true);
+        if (isFirstLoad.current) {
+          setLoading(true);
+        }
 
         const res = await axios.get(`${api}/telemetry/latest?device_id=1`);
         const value = res.data;
         console.log("API DATA:", value);
 
-        setCurrentValues([
+        const newData = [
           { name: "pH", value: value.ph ?? 0 },
           { name: "Turbidity", value: value.turb ?? 0 },
           { name: "TDS", value: value.tds ?? 0 },
           { name: "Hardness", value: value.hardness ?? 0 },
           { name: "Temperature", value: value.temp ?? 0 },
-          {name: "Electrical Conductivity", value: value.ec ?? 0},
+          { name: "Electrical Conductivity", value: value.ec ?? 0 },
           { name: "DO", value: value.do ?? 0 },
           { name: "Salinity", value: value.salinity ?? 0 },
-        ]);
+        ];
+        const isSame =
+          JSON.stringify(prevDataRef.current) === JSON.stringify(newData);
+
+        const now = new Date().toLocaleString();
+
+        if (isFirstLoad.current) {
+          setCurrentValues(newData);
+          isFirstLoad.current = false;
+        }
+
+        if (!isSame) {
+          setCurrentValues(newData);
+          setLastUpdated(now);
+          prevDataRef.current = newData;
+
+          localStorage.setItem("prevDeviceData", JSON.stringify(newData));
+          localStorage.setItem("lastUpdated", now);
+        }
         setLoading(false);
+        isFirstLoad.current = false;
       } catch (error) {
         console.error("Error fetching device data:", error);
         setLoading(false);
@@ -54,7 +189,7 @@ export default function Devices() {
     };
 
     fetchdeviceData();
-    const interval = setInterval(fetchdeviceData, 15000);
+    const interval = setInterval(fetchdeviceData, 60000);
 
     return () => clearInterval(interval);
   }, []);
@@ -106,23 +241,25 @@ export default function Devices() {
                 <Plus size={18} className="mr-2" />
                 Add Device
               </Button> */}
+              <div className="flex items-center gap-2 text-sm text-gray-400 bg-white/5 border border-white/10 px-4 py-2 rounded-lg">
+                <span className="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></span>
+
+                {/* Text */}
+                {lastUpdated ? (
+                  <span>
+                    Last Updated:{" "}
+                    <span className="text-cyan-400 font-medium">
+                      {lastUpdated}
+                    </span>
+                  </span>
+                ) : (
+                  "Fetching..."
+                )}
+              </div>
             </motion.div>
 
             {/* KPI CARDS */}
-            {/* <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.08,
-                  },
-                },
-              }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10"
-            > */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10" >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
               {currentValues.length === 0 ? (
                 <div className="col-span-full flex flex-col items-center justify-center py-16 text-center border border-white/10 rounded-xl bg-white/5">
                   <div className="w-16 h-16 flex items-center justify-center rounded-full bg-cyan-500/10 mb-4">
@@ -143,85 +280,42 @@ export default function Devices() {
                   </Button>
                 </div>
               ) : (
-                currentValues.map((item, i) => (
-                  <motion.div
-                    key={i}
-                    variants={{
-                      hidden: { opacity: 0, y: 20 },
-                      visible: { opacity: 1, y: 0 },
-                    }}
-                    whileHover={{ scale: 1.04 }}
-                    className="bg-white/5 border border-white/10 rounded-xl p-5"
-                  >
-                    <p className="text-sm text-gray-400">{item.name}</p>
-                    <p className="text-2xl font-semibold text-cyan-300">
-                      {item.value ?? "--"}
-                    </p>
-                  </motion.div>
-                ))
+                currentValues.map((item, i) => {
+                  const status = getStatus(item.name, item.value);
+                  const unit = units[item.name] || "";
+
+                  return (
+                    <motion.div
+                      key={i}
+                      className="bg-white/5 border border-white/10 rounded-xl p-5"
+                    >
+                      {/* Parameter Name */}
+                      <p className="text-sm text-gray-400">{item.name}</p>
+
+                      {/* Value + Unit */}
+                      <p className="text-2xl font-semibold text-cyan-300 flex items-end gap-1">
+                        {item.value ?? "--"}
+                        <span className="text-xs text-gray-500">{unit}</span>
+                      </p>
+
+                      {/* Status Indicator */}
+                      <div className="flex items-center gap-2 mt-2">
+                        <span
+                          className={`w-2.5 h-2.5 rounded-full ${status.color}`}
+                        ></span>
+                        <span className="text-xs text-gray-400">
+                          {status.label}
+                        </span>
+                      </div>
+                    </motion.div>
+                  );
+                })
               )}
-              </div>
+            </div>
             {/* </motion.div> */}
 
             {/* CHART SECTION */}
             <div>
-              {/* LINE CHART */}
-              {/* <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3 }}
-                className="bg-white/5 border border-white/10 rounded-xl p-6"
-              >
-                <h3 className="mb-4 text-lg font-semibold">
-                  Water Quality Trend
-                </h3>
-
-                <div className="h-72">
-                  {trendValues.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center text-center">
-                      <div className="w-14 h-14 flex items-center justify-center rounded-full bg-cyan-500/10 mb-4">
-                        <Plus className="text-cyan-400" size={24} />
-                      </div>
-
-                      <h4 className="text-md font-semibold mb-1">
-                        No Trend Data Available
-                      </h4>
-
-                      <p className="text-gray-400 text-sm max-w-xs mb-4">
-                        We couldn&apos;t find any historical data. Connect your
-                        device or wait for data collection.
-                      </p>
-
-                      <Button className="bg-cyan-500 hover:bg-cyan-600 text-black flex items-center gap-2">
-                        <Plus size={14} />
-                        Add Device
-                      </Button>
-                    </div>
-                  ) : (
-                    <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={trendValues}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
-                        <XAxis dataKey="time" stroke="#9ca3af" />
-                        <YAxis stroke="#9ca3af" />
-                        <Tooltip />
-                        <Line
-                          type="monotone"
-                          dataKey="ph"
-                          stroke="#22d3ee"
-                          strokeWidth={2}
-                        />
-                        <Line
-                          type="monotone"
-                          dataKey="tds"
-                          stroke="#38bdf8"
-                          strokeWidth={2}
-                        />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  )}
-                </div>
-              </motion.div> */}
-
               {/* BAR CHART */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}

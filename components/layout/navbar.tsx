@@ -65,7 +65,16 @@ export function Navbar() {
             >
               Home
             </Link>
-
+            <Link
+              href="/about"
+              className={`transition font-medium ${
+                pathname === "/about"
+                  ? "text-blue-400"
+                  : "text-white hover:text-blue-400"
+              }`}
+            >
+              About
+            </Link>
             {/* Services */}
             <Link
               href="/services"
@@ -97,9 +106,7 @@ export function Navbar() {
               >
                 <Link href="/auth/login">Login</Link>
               </Button>
-            ) : (
-              null
-            )}
+            ) : null}
           </div>
 
           {/* MOBILE MENU BUTTON */}
@@ -128,7 +135,12 @@ export function Navbar() {
           >
             Services
           </Link>
-
+          <Link
+            href="/about"
+            className="block text-white hover:text-blue-400 transition"
+          >
+            About
+          </Link>
           <Link
             href="#how-it-works"
             className="block text-white hover:text-blue-400 transition"
@@ -137,17 +149,17 @@ export function Navbar() {
           </Link>
 
           <div className="flex gap-2 pt-2">
-              {!isLoggedIn ? (
-                <>
-                  <Button
-                    variant="ghost"
-                    asChild
-                    className="flex-1 rounded-full text-white hover:bg-white/10"
-                  >
-                    <Link href="/auth/login">Login</Link>
-                  </Button>
-                </>
-              ) : (null)}
+            {!isLoggedIn ? (
+              <>
+                <Button
+                  variant="ghost"
+                  asChild
+                  className="flex-1 rounded-full text-white hover:bg-white/10"
+                >
+                  <Link href="/auth/login">Login</Link>
+                </Button>
+              </>
+            ) : null}
           </div>
         </div>
       )}

@@ -13,7 +13,6 @@ import {
   Waves,
   Beaker,
   Mountain,
-  ShieldCheck,
   AlertTriangle,
   Wind,
   Droplets,
