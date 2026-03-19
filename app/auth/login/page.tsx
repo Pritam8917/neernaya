@@ -43,9 +43,14 @@ export default function Login() {
     }
 
     try {
-      const response = await axios.post(`${api}/auth/signin`, {
-        email: formData.email,
-        password: formData.password,
+      const form = new FormData();
+      form.append("username", formData.email);
+      form.append("password", formData.password);
+
+      const response = await axios.post(`${api}/auth/signin`, form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       localStorage.setItem("token", response.data.access_token);
