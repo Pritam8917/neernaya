@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Smartphone, FileText, LogOut, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -12,7 +12,7 @@ interface UserSidebarProps {
   userName?: string;
 }
 
-export function UserSidebar({ userName = "Rahul Sharma" }: UserSidebarProps) {
+export function UserSidebar({ userName = "User" }: UserSidebarProps) {
   const api = process.env.NEXT_PUBLIC_API_URL;
   const pathname = usePathname();
   const router = useRouter();
@@ -24,9 +24,8 @@ export function UserSidebar({ userName = "Rahul Sharma" }: UserSidebarProps) {
     { icon: FileText, label: "Apply for Device", href: "/user/apply" },
     { icon: Smartphone, label: "Monitoring Devices", href: "/user/devices" },
   ];
-  
+
   const handleLogout = async () => {
-    
     try {
       await axios.post(`${api}/auth/signout`, {
         withCredentials: true,
@@ -37,6 +36,12 @@ export function UserSidebar({ userName = "Rahul Sharma" }: UserSidebarProps) {
       console.error("Logout failed", error);
     }
   };
+  useEffect(() => {
+    const handler = () => setIsOpen((prev) => !prev);
+    window.addEventListener("toggleSidebar", handler);
+
+    return () => window.removeEventListener("toggleSidebar", handler);
+  }, []);
   return (
     <>
       {/* MOBILE BUTTON */}
