@@ -11,6 +11,7 @@ import {
   Shield,
   Cloud,
   Settings,
+  ArrowRight,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
@@ -102,42 +103,45 @@ export default function Home() {
           </span>
         </h1>
 
-        <p className="mt-6 text-sm text-slate-300 max-w-2xl mx-auto">
+        <p className="mt-6 text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto px-2 sm:px-0 leading-relaxed">
           <TextGenerateEffect duration={2} filter={false} words={words} />
         </p>
 
-        <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
           <Button
             asChild
             size="lg"
-            className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold px-3 py-6"
+            className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold px-6 py-5 rounded-xl transition-all duration-300"
           >
             <Link
               href={startRoute}
-              className="text-xl flex items-center gap-2 group"
+              className="text-md sm:text-lg flex items-center gap-2 group"
             >
               {isLoggedIn ? "Go to Dashboard" : "Start Monitoring"}
+
+              {/* Arrow Icon */}
+              <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </Button>
         </div>
       </section>
 
       {/* SERVICES */}
-      <section className="max-w-7xl mx-auto px-4 py-20">
-        {/* Heading Animation */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-center mb-14"
+          className="text-center mb-12 sm:mb-14"
         >
-          <h2 className="text-3xl md:text-4xl font-bold">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
             Water Quality Monitoring Features
           </h2>
 
           <div className="mt-3 flex justify-center">
-            <div className="h-1 w-56 rounded-full bg-linear-to-r from-cyan-400 via-blue-400 to-teal-400"></div>
+            <div className="h-1 w-32 sm:w-44 md:w-56 rounded-full bg-linear-to-r from-cyan-400 via-blue-400 to-teal-400"></div>
           </div>
         </motion.div>
 
@@ -150,11 +154,11 @@ export default function Home() {
             hidden: {},
             show: {
               transition: {
-                staggerChildren: 0.15,
+                staggerChildren: 0.12,
               },
             },
           }}
-          className="grid md:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
           {services.map((service, i) => {
             const Icon = service.icon;
@@ -163,21 +167,32 @@ export default function Home() {
               <motion.div
                 key={i}
                 variants={{
-                  hidden: { opacity: 0, y: 50, scale: 0.95 },
+                  hidden: { opacity: 0, y: 40, scale: 0.95 },
                   show: { opacity: 1, y: 0, scale: 1 },
                 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
                 whileHover={{
-                  y: -8,
+                  y: -6,
                   scale: 1.02,
                 }}
-                className="p-8 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 transition shadow-lg hover:shadow-cyan-500/20"
+                className="
+            p-5 sm:p-6 md:p-8
+            rounded-xl
+            bg-white/5 backdrop-blur-xl
+            border border-white/10
+            hover:border-cyan-400/40
+            transition shadow-lg hover:shadow-cyan-500/20
+          "
               >
-                <Icon className="text-cyan-400 mb-4" size={30} />
+                <Icon className="text-cyan-400 mb-3 sm:mb-4" size={24} />
 
-                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-2">
+                  {service.title}
+                </h3>
 
-                <p className="text-slate-300 text-sm">{service.description}</p>
+                <p className="text-slate-300 text-xs sm:text-sm">
+                  {service.description}
+                </p>
               </motion.div>
             );
           })}
@@ -187,28 +202,30 @@ export default function Home() {
       {/* HOW IT WORKS */}
       <section
         id="how-it-works"
-        className="relative max-w-5xl mx-auto px-4 py-24 overflow-hidden"
+        className="relative mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 overflow-hidden "
       >
         {/* Background Glow */}
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-125 h-125 bg-cyan-500/20 blur-[140px] rounded-full" />
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-75 sm:w-125 h-75 sm:h-125 bg-cyan-500/20 blur-[140px] rounded-full" />
         </div>
 
         {/* Heading */}
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold">How NeerNaya Works</h2>
+        <div className="text-center mb-12 sm:mb-14">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+            How NeerNaya Works
+          </h2>
 
           <div className="mt-3 flex justify-center">
-            <div className="h-1 w-36 rounded-full bg-linear-to-r from-cyan-400 via-blue-400 to-teal-400"></div>
+            <div className="h-1 w-28 sm:w-36 rounded-full bg-linear-to-r from-cyan-400 via-blue-400 to-teal-400"></div>
           </div>
         </div>
 
         {/* Timeline */}
         <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-linear-to-b from-cyan-400 via-blue-400 to-transparent" />
+          {/* Line */}
+          <div className="absolute left-4 sm:left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-linear-to-b from-cyan-400 via-blue-400 to-transparent transform md:-translate-x-1/2" />
 
-          <div className="space-y-16">
+          <div className="space-y-12 sm:space-y-16">
             {steps.map((step, i) => (
               <motion.div
                 key={i}
@@ -216,29 +233,23 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className={`relative flex items-center ${
+                className={`relative flex flex-col md:flex-row items-start md:items-center ${
                   i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
               >
                 {/* Dot */}
-                <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-cyan-400 rounded-full shadow-[0_0_20px_rgba(34,211,238,0.8)] -translate-x-1/2" />
+                <div className="absolute left-3 sm:left-6 md:left-1/2 w-3 h-3 sm:w-4 sm:h-4 bg-cyan-400 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.8)] transform md:-translate-x-1/2" />
 
                 {/* Card */}
-                <div className="w-full md:w-1/2 pl-12 md:pl-9 md:px-10">
-                  <div
-                    className="
-                p-6 rounded-xl
-                bg-white/5 backdrop-blur-xl
-                border border-white/10
-                hover:border-cyan-400/40
-                transition shadow-lg
-              "
-                  >
-                    <div className="text-sm font-semibold mb-2 text-cyan-400">
+                <div className="w-full md:w-1/2 pl-12 sm:pl-16 md:pl-6 md:px-6 lg:px-12">
+                  <div className="p-5 sm:p-6 rounded-xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-cyan-400/40 transition shadow-lg">
+                    <div className="text-xs sm:text-sm font-semibold mb-2 text-cyan-400">
                       Step {step.number}
                     </div>
 
-                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                    <h3 className="text-lg sm:text-xl font-semibold mb-2">
+                      {step.title}
+                    </h3>
 
                     <p className="text-slate-400 text-sm">{step.description}</p>
                   </div>
@@ -250,7 +261,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="max-w-5xl mx-auto px-4 py-28">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 40 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -258,8 +269,8 @@ export default function Home() {
           viewport={{ once: true }}
           className="
       relative
-      p-12 md:p-16
-      rounded-3xl
+      p-6 sm:p-10 md:p-16
+      rounded-2xl sm:rounded-3xl
       text-center
       bg-linear-to-br from-cyan-500/10 via-blue-500/5 to-transparent
       backdrop-blur-xl
@@ -280,7 +291,7 @@ export default function Home() {
           />
 
           {/* Badge */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1 text-sm text-cyan-300">
+          <div className="mb-5 sm:mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 sm:px-4 py-1 text-xs sm:text-sm text-cyan-300">
             Reliable • Real-Time • Trusted Smart Water Monitoring
           </div>
 
@@ -289,7 +300,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-3xl md:text-5xl font-bold mb-6"
+            className="text-2xl sm:text-3xl md:text-5xl font-bold mb-5 sm:mb-6 leading-tight"
           >
             Secure Your Water Quality
             <span className="block bg-linear-to-r from-cyan-400 via-blue-400 to-teal-400 bg-clip-text text-transparent">
@@ -302,7 +313,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="text-slate-300 mb-10 max-w-2xl mx-auto text-base md:text-lg"
+            className="text-slate-300 mb-8 sm:mb-10 max-w-xl sm:max-w-2xl mx-auto text-sm sm:text-base md:text-lg"
           >
             Start monitoring your water quality in real time using intelligent
             IoT sensors. Get instant alerts when water becomes unsafe and ensure
@@ -315,7 +326,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="flex flex-col sm:flex-row justify-center gap-4"
+            className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
               <Button
@@ -325,7 +336,7 @@ export default function Home() {
             bg-cyan-500 hover:bg-cyan-600
             text-black font-semibold
             shadow-lg hover:shadow-cyan-500/30
-            transition px-8
+            transition px-6 sm:px-8 py-4 sm:py-5 text-sm sm:text-base
           "
               >
                 <Link href={startRoute}>
@@ -341,7 +352,7 @@ export default function Home() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/10 px-8"
+                className="border-cyan-400/40 text-cyan-300 hover:bg-cyan-500/10 px-6 sm:px-8 py-4 sm:py-5 text-sm sm:text-base"
               >
                 <Link href="/services">View Monitoring Solutions</Link>
               </Button>
@@ -349,7 +360,7 @@ export default function Home() {
           </motion.div>
 
           {/* Trust Points */}
-          <div className="mt-8 text-sm text-slate-400 flex flex-wrap justify-center gap-6">
+          <div className="mt-6 sm:mt-8 text-xs sm:text-sm text-slate-400 flex flex-wrap justify-center gap-3 sm:gap-6">
             <span>✓ Easy Installation</span>
             <span>✓ Real-Time Alerts</span>
             <span>✓ Smart Automation Support</span>

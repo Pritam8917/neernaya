@@ -11,27 +11,27 @@ const teams = [
     name: "Web Team",
     icon: Globe,
     members: [
-      { name: "Pritam Das Adhikari", img: "/team/web1.jpg" },
-      { name: "Ayush Bardhan Tripathy", img: "/team/web2.jpg" },
+      { name: "Pritam Das Adhikari", img: "/pritam-das-adhikari.jpeg" },
+      { name: "Ayush Bardhan Tripathy", img: "/ayush-bardhan-tripathy.jpeg" },
     ],
   },
   {
     name: "IoT Team",
     icon: Wifi,
     members: [
-      { name: "Ratnakar Sahoo", img: "/team/iot1.jpg" },
-      { name: "Priyadarshani Mahapatra", img: "/team/iot2.jpg" },
-      { name: "Sohan kumar nayak", img: "/team/iot3.jpg" },
+      { name: "Ratnakar Sahoo", img: "/ratnakar-sahoo.jpeg" },
+      { name: "Priyadarshani Mahapatra", img: "/priyadarshani-mahapatra.jpeg" },
+      { name: "Sohan kumar nayak", img: "/sohan-kumar-nayak.jpeg" },
     ],
   },
   {
     name: "Sensor Team",
     icon: Cpu,
     members: [
-      { name: "Sushree Stuti Bandana Swain", img: "/team/sensor1.jpg" },
-      { name: "Asmit Patel", img: "/team/sensor2.jpg" },
-      { name: "Sai Smruti Patro", img: "/team/sensor3.jpg" },
-      { name: "Suchismita Sahoo", img: "/team/sensor4.jpg" },
+      { name: "Sushree Stuti Bandana Swain", img: "/stuti.jpeg" },
+      { name: "Asmit Patel", img: "/asmit-patel.jpeg" },
+      { name: "Sai Smruti Patro", img: "/saismruti-patro.jpeg" },
+      { name: "Suchismita Sahoo", img: "/suchismita-sahoo.jpeg" },
     ],
   },
 ];
@@ -41,18 +41,18 @@ export default function AboutPage() {
     <div className="min-h-screen bg-[#050505] text-white">
       <Navbar />
 
-      <div className="px-6 md:px-10 py-20 max-w-7xl mx-auto">
+      <div className="px-6 md:px-10 py-24 max-w-7xl mx-auto">
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-20"
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-linear-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
             About Neernaya
           </h1>
 
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+          <p className="text-gray-400 max-w-2xl mx-auto md:text-lg leading-relaxed">
             Neernaya is an advanced IoT-driven water monitoring system designed
             to ensure real-time analysis of water quality parameters. Our
             solution empowers smarter environmental decisions, promoting
@@ -100,12 +100,12 @@ export default function AboutPage() {
             {
               name: "Managovinda Mishra",
               role: "Founder & Director, NEMHANS Solutions Pvt Ltd",
-              img: "/founder.jpg",
+              img: "/managobinda-mishra.jpeg",
             },
             {
-              name: "Prof. Raseswari Pradhan",
-              role: "Project Mentor & Academic Guide",
-              img: "/mentor.jpg",
+              name: "Dr. Raseswari Pradhan",
+              role: "Assistant Professor, Department of Electrical Engineering, VSSUT Burla",
+              img: "/raseswari-pradhan.jpeg",
             },
           ].map((person, i) => (
             <motion.div
@@ -128,8 +128,8 @@ export default function AboutPage() {
 
         {/* PROJECT DESCRIPTION */}
         <motion.div className="text-center mb-20">
-          <h2 className="text-3xl font-semibold mb-6">Project Overview</h2>
-          <p className="text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed">
+          <h2 className="text-3xl font-semibold mb-6 bg-linear-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">Project Overview</h2>
+          <p className="text-gray-400 max-w-3xl mx-auto md:text-lg leading-relaxed">
             Neernaya continuously monitors critical water quality parameters
             such as pH, turbidity, total dissolved solids (TDS), temperature,
             and conductivity using advanced sensor integration. The system
@@ -140,9 +140,9 @@ export default function AboutPage() {
         </motion.div>
         {/* MISSION */}
         <motion.div className="text-center mb-20">
-          <h2 className="text-3xl font-semibold mb-6">Our Mission</h2>
+          <h2 className="text-3xl font-semibold mb-6 bg-linear-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">Our Mission</h2>
 
-          <p className="text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed">
+          <p className="text-gray-400 max-w-3xl mx-auto md:text-lg leading-relaxed">
             Our mission is to leverage cutting-edge IoT technology to create
             reliable, scalable, and intelligent water monitoring systems that
             contribute to a sustainable future. We aim to bridge the gap between
@@ -152,7 +152,7 @@ export default function AboutPage() {
 
         {/* TEAMS */}
         <div>
-          <h2 className="text-3xl font-semibold text-center mb-6">
+          <h2 className="text-3xl font-semibold text-center mb-6 bg-linear-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">
             Our Teams
           </h2>
           <p className="text-gray-400 text-center max-w-2xl mx-auto mb-10">
@@ -192,11 +192,9 @@ export default function AboutPage() {
                             alt={member.name}
                             height={120}
                             width={120}
-                            className="w-32 h-32 rounded-2xl object-cover mx-auto border border-white/20 group-hover:scale-110 transition duration-300"
+                            className="w-32 h-32 rounded-2xl object-cover mx-auto border border-white/20 transition duration-300"
                           />
 
-                          {/* Glow Effect */}
-                          <div className="absolute inset-0 rounded-2xl bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition"></div>
                         </div>
 
                         {/* Name */}
