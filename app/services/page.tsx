@@ -135,41 +135,6 @@ export default function Services() {
           })}
         </div>
       </section>
-
-      {/* CTA */}
-      <section className="max-w-5xl mx-auto px-4 pb-32">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="
-          p-12 rounded-2xl text-center
-          bg-linear-to-br from-cyan-500/10 via-blue-500/5 to-transparent
-          backdrop-blur-xl border border-cyan-400/20
-        "
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Start Monitoring Your Water Today
-          </h2>
-
-          <p className="text-slate-400 mb-8 max-w-xl mx-auto">
-            Apply, get approval, receive your IoT kit and start real-time
-            monitoring.
-          </p>
-
-          <Button
-            asChild
-            size="lg"
-            className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold"
-          >
-            <Link href="/auth/signup" className="flex items-center gap-2">
-              Apply Now <ArrowRight size={18} />
-            </Link>
-          </Button>
-        </motion.div>
-      </section>
-
       <Footer />
     </main>
   );
