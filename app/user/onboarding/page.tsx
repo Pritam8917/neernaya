@@ -241,10 +241,10 @@ export default function Onboarding() {
       <main className="pt-20 px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-5xl mx-auto">
           {/* Progress Bar */}
-          <div className="mb-12 px-4">
-            <div className="flex justify-center items-center md:gap-6 gap-4 mb-8">
+          <div className="mb-12 px-8 mx-5">
+            <div className="flex justify-center items-center md:gap-6 mb-8">
               {steps.map((step, idx) => (
-                <div key={step.id} className="flex items-center gap-3">
+                <div key={step.id} className="flex items-center gap-2">
                   {/* Step Circle */}
                   <div
                     className={`md:w-10 md:h-10 w-8 h-8 rounded-full flex items-center justify-center font-semibold transition ${

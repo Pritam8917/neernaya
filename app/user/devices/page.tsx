@@ -215,7 +215,7 @@ export default function Devices() {
       <div className="hidden lg:block fixed top-0 left-0 w-full z-50">
         <Navbar />
       </div>
-      <div className="lg:hidden fixed top-2 rounded-full left-2 right-3 w- z-50 bg-black border border-white/15 px-7 py-4 flex items-center justify-between ">
+      <div className="lg:hidden fixed top-2 rounded-full left-1 right-1 w- z-50 bg-black border border-white/15 px-7 py-4 flex items-center justify-between ">
         <Link href="/" className="text-xl font-bold" style={{ fontFamily: "CinzelCustom" }}>NEERNAYA</Link>
 
         {/* This button will trigger your existing sidebar */}

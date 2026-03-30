@@ -42,10 +42,10 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   return (
-    <nav className="sticky top-0 z-60 px-4 md:px-16">
-      <div className="relative w-full max-w-8xl mx-auto">
+    <nav className="sticky top-0 z-60 px-1 md:px-14">
+      <div className="relative w-full max-w-8xl mx-auto ">
         {/* NAV CONTENT */}
-        <div className="relative flex items-center justify-between py-4 md:py-0 bg-black/40 backdrop-blur-xl border md:bg-transparent border-white/10 md:border-none top-3 rounded-full z-50 px-5 md:top-8 md:backdrop-blur-none">
+        <div className="relative flex items-center justify-between py-4 md:py-0 bg-black/40 backdrop-blur-xl border md:bg-transparent border-white/10 md:border-none top-3 rounded-full z-50 px-6 md:top-8 md:backdrop-blur-none">
           {/* LEFT LOGO */}
           <Link
             href="/"
