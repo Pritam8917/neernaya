@@ -61,17 +61,30 @@ export default function Login() {
       if (axios.isAxiosError(err)) {
         const status = err.response?.status;
 
-        if (status === 401) {
-          setError("Invalid email or password");
+        if (status === 400) {
+          setSuccess(false);
+          setError("Please check your input and try again.");
+        } else if (status === 401) {
+          setError("Account not found. Please sign up first.");
+
           setTimeout(() => {
             router.push("/auth/signup");
-          }, 1500);
+          }, 2000);
+        } else if (status === 404) {
+          setError("Account not found. Please sign up first.");
+          setTimeout(() => {
+            router.push("/auth/signup");
+          }, 2000);
+        } else if (status === 500) {
+          setError("Server error. Please try again later.");
         } else {
-          setError("Login failed. Please try again.");
+          setError("Unable to login. Please try again.");
         }
       } else {
-        setError("Something went wrong");
+        setError("Network error. Check your internet connection.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
