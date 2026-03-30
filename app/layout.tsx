@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Neernaya",
-  description: "Real-time IoT water quality monitoring system for smart water management.",
+  title: "Neernaya | IoT-Based Water Quality Monitoring System",
+  description:
+    "Real-time IoT water quality monitoring system for smart and efficient water management. Monitor, analyze, and ensure safe water quality.",
 };
 
 export default function RootLayout({
