@@ -94,8 +94,16 @@ export default function Home() {
       <Navbar />
 
       {/* HERO */}
-      <section className="max-w-7xl mx-auto px-4 py-28 text-center">
+      <section className="max-w-7xl mx-auto px-4 md:py-25 py-13 text-center">
         <Spotlight />
+
+        {/* 🔥 Top Tagline */}
+        <p className="inline-flex items-center gap-2 text-xs md:text-sm text-cyan-400 font-medium mb-3 px-5 py-1 rounded-full border border-cyan-400/30 bg-cyan-400/10">
+          {/* 🔴 Blinking Dot */}
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          IoT-Based Water Management System
+        </p>
+
         <h1 className="text-4xl md:text-6xl font-bold leading-tight">
           Smart Water Quality
           <span className="block bg-linear-to-r from-cyan-400 via-blue-400 to-teal-400 bg-clip-text text-transparent">
@@ -103,7 +111,7 @@ export default function Home() {
           </span>
         </h1>
 
-        <p className="mt-6 text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto px-2 sm:px-0 leading-relaxed">
+        <p className="mt-6 text-sm md:text-lg text-slate-300 max-w-4xl mx-auto px-2 sm:px-0 ">
           <TextGenerateEffect duration={2} filter={false} words={words} />
         </p>
 
@@ -119,7 +127,6 @@ export default function Home() {
             >
               {isLoggedIn ? "Go to Dashboard" : "Start Monitoring"}
 
-              {/* Arrow Icon */}
               <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </Button>

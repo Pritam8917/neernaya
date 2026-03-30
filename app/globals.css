@@ -42,3 +42,6 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;             /* Chrome, Safari */
 }
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
