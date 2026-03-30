@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/layout/navbar";
-import { UserSidebar } from "@/components/layout/user-sidebar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, CheckCircle2, Clock, AlertCircle } from "lucide-react";
@@ -35,7 +34,7 @@ export default function Onboarding() {
               <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="text-green-400" size={40} />
               </div>
-              <h2 className="text-3xl font-bold text-white">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">
                 Device Order Submitted Successfully
               </h2>
               <p className="text-white/60 max-w-md mx-auto">
@@ -60,7 +59,7 @@ export default function Onboarding() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-4 ">
                 <CheckCircle2
                   className="text-blue-400 mt-1 shrink-0"
                   size={24}
@@ -76,7 +75,7 @@ export default function Onboarding() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-4 flex-wrap sm:flex-nowrap">
                 <AlertCircle
                   className="text-blue-400 mt-1 shrink-0"
                   size={24}
@@ -93,7 +92,7 @@ export default function Onboarding() {
               </div>
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 variant="outline"
                 onClick={() => router.push("/user/devices")}
@@ -111,7 +110,7 @@ export default function Onboarding() {
                   }, 2000);
                 }}
                 disabled={isProcessing}
-                className="bg-blue-600 hover:bg-blue-700 text-white cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-600/50 disabled:hover:bg-blue-600/50 p-5 "
+                className="bg-blue-600 hover:bg-blue-700 text-white cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-600/50 disabled:hover:bg-blue-600/50 w-full sm:w-auto p-4 sm:p-5 "
               >
                 {isProcessing ? (
                   <>
@@ -130,7 +129,7 @@ export default function Onboarding() {
         return (
           <div className="space-y-8">
             <div className="text-center space-y-4">
-              <h2 className="text-3xl font-bold text-white">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">
                 Confirm Your Device Purchase
               </h2>
               <p className="text-white/60 max-w-md mx-auto">
@@ -168,7 +167,7 @@ export default function Onboarding() {
                   }, 1500);
                 }}
                 disabled={isProcessing}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white p-5 cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-600/50 disabled:hover:bg-blue-600/50"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white  sm:w-auto p-4 sm:p-5 cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-600/50 disabled:hover:bg-blue-600/50"
               >
                 {isProcessing ? (
                   <>
@@ -190,7 +189,7 @@ export default function Onboarding() {
               <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="text-green-400" size={40} />
               </div>
-              <h2 className="text-3xl font-bold text-white">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">
                 Payment Confirmed
               </h2>
               <p className="text-white/60 max-w-md mx-auto">
@@ -215,7 +214,7 @@ export default function Onboarding() {
                   setTimeout(() => router.push("/user/devices"), 1500);
                 }}
                 disabled={isProcessing}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white p-5 cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-600/50 disabled:hover:bg-blue-600/50"
+                className=" bg-blue-600 hover:bg-blue-700 text-white w-full sm:w-auto p-4 sm:p-5 cursor-pointer disabled:cursor-not-allowed disabled:bg-blue-600/50 disabled:hover:bg-blue-600/50"
               >
                 {isProcessing ? (
                   <>
@@ -238,60 +237,52 @@ export default function Onboarding() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-white">
       <Navbar />
-      <main className="min-h-screen bg-[#0A0A0A] text-white pt-20">
-        <div className="flex">
-          <div className="fixed left-0 top-20 h-[calc(100vh-5rem)] w-64 border-r border-white/10 bg-[#0A0A0A] z-40">
-            <UserSidebar />
-          </div>
 
-          <div className="flex-1 ml-60 pr-8 py-12">
-            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-              {/* Progress Bar */}
-              <div className="mb-12">
-                <div className="flex justify-between items-center mb-8">
-                  {steps.map((step, idx) => (
-                    <div key={step.id} className="flex items-center flex-1">
-                      <div
-                        className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition ${
-                          currentStep >= step.id
-                            ? "bg-blue-600 text-white"
-                            : "bg-white/5 border border-white/10 text-white/60"
-                        }`}
-                      >
-                        {currentStep > step.id ? (
-                          <CheckCircle2 size={20} />
-                        ) : (
-                          step.id
-                        )}
-                      </div>
+      <main className="pt-20 px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-5xl mx-auto">
+          {/* Progress Bar */}
+          <div className="mb-12 px-4">
+            <div className="flex justify-center items-center md:gap-6 gap-4 mb-8">
+              {steps.map((step, idx) => (
+                <div key={step.id} className="flex items-center gap-3">
+                  {/* Step Circle */}
+                  <div
+                    className={`md:w-10 md:h-10 w-8 h-8 rounded-full flex items-center justify-center font-semibold transition ${
+                      currentStep >= step.id
+                        ? "bg-blue-600 text-white"
+                        : "bg-white/5 border border-white/10 text-white/60"
+                    }`}
+                  >
+                    {currentStep > step.id ? (
+                      <CheckCircle2 size={20} />
+                    ) : (
+                      step.id
+                    )}
+                  </div>
 
-                      <p
-                        className={`text-sm font-medium ml-3 ${
-                          currentStep >= step.id
-                            ? "text-white"
-                            : "text-white/60"
-                        }`}
-                      >
-                        {step.label}
-                      </p>
+                  {/* Label */}
+                  <p
+                    className={`md:text-sm font-medium text-[13px] ${
+                      currentStep >= step.id ? "text-white" : "text-white/60"
+                    }`}
+                  >
+                    {step.label}
+                  </p>
 
-                      {idx < steps.length - 1 && (
-                        <div
-                          className={`flex-1 h-1 mx-4 rounded-full transition ${
-                            currentStep > step.id
-                              ? "bg-blue-600"
-                              : "bg-white/10"
-                          }`}
-                        />
-                      )}
-                    </div>
-                  ))}
+                  {/* Line */}
+                  {idx < steps.length - 1 && (
+                    <div
+                      className={`w-12 h-1 rounded-full transition ${
+                        currentStep > step.id ? "bg-blue-600" : "bg-white/10"
+                      }`}
+                    />
+                  )}
                 </div>
-              </div>
-
-              {renderStep()}
+              ))}
             </div>
           </div>
+
+          {renderStep()}
         </div>
       </main>
     </div>

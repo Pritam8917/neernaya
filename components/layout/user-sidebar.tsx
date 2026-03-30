@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Smartphone, FileText, LogOut, Menu, X } from "lucide-react";
+import { Smartphone, FileText, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
@@ -36,44 +36,32 @@ export function UserSidebar({ userName = "User" }: UserSidebarProps) {
       console.error("Logout failed", error);
     }
   };
+
   useEffect(() => {
     const handler = () => setIsOpen((prev) => !prev);
     window.addEventListener("toggleSidebar", handler);
 
     return () => window.removeEventListener("toggleSidebar", handler);
   }, []);
-  return (
-    <>
-      {/* MOBILE BUTTON */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="
-          md:hidden fixed top-20 left-4 z-50
-          p-2 rounded-lg
-          bg-black/70 backdrop-blur-xl
-          border border-cyan-500/20
-          text-cyan-300
-        "
-      >
-        {isOpen ? <X size={22} /> : <Menu size={22} />}
-      </button>
 
+  return (
+    <div className="relative bg-red-500/10">
       {/* SIDEBAR */}
       <aside
         className={`
-          fixed md:relative
-          top-25 md:top-0
-          left-0
-          h-[calc(90vh-80px)] md:h-screen
-          w-72
-          bg-[#0A0A0A]
-          backdrop-blur-2xl
-          transition-transform duration-300
-          z-40 md:z-0 pt-13 px-3
-          ${isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
-        `}
+    fixed
+    md:top-28 top-18
+    left-0
+    md:h-[calc(100vh-7rem)]
+    h-[calc(100vh-4rem)]
+    w-72
+    bg-[#0A0A0A]
+    transition-transform duration-300
+    z-50
+    ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+  `}
       >
-        <div className="flex flex-col h-[calc(90vh-5rem)]  ">
+        <div className="flex flex-col h-full">
           {/* USER BLOCK */}
           <div className="p-5 border-b border-white/10">
             <div className="flex items-center gap-4">
@@ -143,7 +131,7 @@ export function UserSidebar({ userName = "User" }: UserSidebarProps) {
             })}
           </nav>
           {/* LOGOUT */}
-          <div className="pt-5 pb-4 border-t border-white/10">
+          <div className="py-6 border-t border-white/10 px-3">
             <Button
               variant="outline"
               className="
@@ -167,10 +155,10 @@ export function UserSidebar({ userName = "User" }: UserSidebarProps) {
       {/* MOBILE OVERLAY */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-30 md:hidden top-20"
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 md:hidden "
           onClick={() => setIsOpen(false)}
         />
       )}
-    </>
+    </div>
   );
 }

@@ -5,12 +5,14 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const [activeSection, setActiveSection] = useState("home");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       const user = localStorage.getItem("user");
@@ -40,14 +42,14 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   return (
-    <nav className="sticky top-10 z-50 px-16">
-      <div className="relative max-w-8xl mx-auto">
+    <nav className="sticky top-0 z-60 px-4 md:px-16">
+      <div className="relative w-full max-w-8xl mx-auto">
         {/* NAV CONTENT */}
-        <div className="relative flex items-center justify-between">
+        <div className="relative flex items-center justify-between py-4 md:py-0 bg-black/40 backdrop-blur-xl border md:bg-transparent border-white/10 md:border-none top-3 rounded-full z-50 px-5 md:top-8 md:backdrop-blur-none">
           {/* LEFT LOGO */}
           <Link
             href="/"
-            className="flex items-center gap-2 font-extrabold text-3xl text-white z-10"
+            className="flex items-center gap-2 font-extrabold md:text-3xl text-xl text-white z-10"
           >
             <span style={{ fontFamily: "CinzelCustom" }}>NEERNAYA</span>
           </Link>
@@ -112,7 +114,7 @@ export function Navbar() {
           {/* MOBILE MENU BUTTON */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white z-10"
+            className="md:hidden text-white z-10 cursor-pointer"
           >
             {isOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
@@ -120,49 +122,76 @@ export function Navbar() {
       </div>
 
       {/* MOBILE MENU DROPDOWN */}
-      {isOpen && (
-        <div className="md:hidden mt-4 mx-auto max-w-sm rounded-2xl bg-black border border-white/10 shadow-xl p-4 space-y-3">
-          <Link
-            href="/"
-            className="block text-white hover:text-blue-400 transition"
-          >
-            Home
-          </Link>
-          <Link
-            href="/about"
-            className="block text-white hover:text-blue-400 transition"
-          >
-            About
-          </Link>
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* 🌫️ BACKGROUND BLUR */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/50 backdrop-blur-lg z-40"
+              onClick={() => setIsOpen(false)}
+            />
 
-          <Link
-            href="/services"
-            className="block text-white hover:text-blue-400 transition"
-          >
-            Services
-          </Link>
-          <Link
-            href="#how-it-works"
-            className="block text-white hover:text-blue-400 transition"
-          >
-            How It Works
-          </Link>
-
-          <div className="flex gap-2 pt-2">
-            {!isLoggedIn ? (
-              <>
-                <Button
-                  variant="ghost"
-                  asChild
-                  className="flex-1 rounded-full text-white hover:bg-white/10"
+            {/* 💎 MENU CONTAINER */}
+            <motion.div
+              initial={{ opacity: 0, y: -40, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -40, scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 180, damping: 18 }}
+              className="md:hidden fixed top-24 left-1/2 -translate-x-1/2 w-[92%] max-w-sm rounded-3xl 
+        bg-white/5 backdrop-blur-2xl border border-white/10 shadow-[0_0_40px_rgba(0,255,255,0.08)] 
+        p-6 space-y-5 z-50"
+            >
+              {/* 🔥 NAV ITEMS */}
+              {[
+                { name: "Home", href: "/" },
+                { name: "About", href: "/about" },
+                { name: "Services", href: "/services" },
+                { name: "How It Works", href: "/#how-it-works" },
+              ].map((item, i) => (
+                <motion.div
+                  key={item.name}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 }}
                 >
-                  <Link href="/auth/login">Login</Link>
-                </Button>
-              </>
-            ) : null}
-          </div>
-        </div>
-      )}
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className={`block text-base font-medium px-4 py-2 rounded-xl transition-all duration-300
+              ${
+                pathname === item.href
+                  ? "bg-cyan-400/10 text-cyan-400"
+                  : "text-white hover:bg-white/10 hover:text-cyan-400"
+              }`}
+                  >
+                    {item.name}
+                  </Link>
+                </motion.div>
+              ))}
+
+              {/* 🔘 LOGIN BUTTON */}
+              {!isLoggedIn && (
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <Button
+                    asChild
+                    className="w-full rounded-full bg-linear-to-r from-cyan-400 to-blue-400 text-black font-semibold py-5 hover:opacity-90 transition"
+                  >
+                    <Link href="/auth/login">Login</Link>
+                  </Button>
+                </motion.div>
+              )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

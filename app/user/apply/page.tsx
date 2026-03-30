@@ -7,7 +7,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { UserSidebar } from "@/components/layout/user-sidebar";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-
+import { Menu } from "lucide-react";
 import {
   FlaskConical,
   Waves,
@@ -18,7 +18,7 @@ import {
   CheckCircle2,
   Loader2,
   Zap,
-  ThermometerIcon
+  ThermometerIcon,
 } from "lucide-react";
 
 export default function Apply() {
@@ -79,7 +79,7 @@ export default function Apply() {
 
   const toggleParameter = (id: string) => {
     setSelectedParams((prev) =>
-      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id],
     );
   };
 
@@ -100,17 +100,37 @@ export default function Apply() {
 
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-white">
-      <Navbar />
+      <div className="hidden lg:block fixed top-0 left-0 w-full z-50">
+        <Navbar />
+      </div>
+      <div className="lg:hidden fixed top-2 rounded-full left-2 right-3 z-50 bg-black border border-white/15 px-7 py-4 flex items-center justify-between ">
+        <Link
+          href="/"
+          className="text-xl font-bold"
+          style={{ fontFamily: "CinzelCustom" }}
+        >
+          NEERNAYA
+        </Link>
 
-      <div className="flex pt-20">
+        {/* This button will trigger your existing sidebar */}
+        <button
+          onClick={() => {
+            const event = new CustomEvent("toggleSidebar");
+            window.dispatchEvent(event);
+          }}
+        >
+          <Menu
+            className="hover:scale-110 transition cursor-pointer"
+            size={24}
+          />
+        </button>
+      </div>
+      <div className="relative pt-20">
         {/* SIDEBAR */}
-        <div className="fixed left-0 top-20 h-[calc(100vh-5rem)] w-64 border-r border-white/10 bg-black z-40">
-          <UserSidebar />
-        </div>
+        <UserSidebar />
 
         {/* MAIN CONTENT */}
-        <div className="flex-1 relative overflow-hidden ml-72 px-20 py-10" >
-          
+        <div className="flex-1 relative overflow-hidden px-6 sm:px-10 lg:ml-72 py-10">
           {/* Page Animation Wrapper */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
@@ -127,12 +147,13 @@ export default function Apply() {
               transition={{ delay: 0.1, duration: 0.5 }}
               className="mb-12"
             >
-              <h1 className="text-4xl font-bold mb-4 tracking-tight">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
                 Configure Water Monitoring
               </h1>
 
-              <p className="text-gray-400 max-w-xl text-lg">
-                Select water quality parameters to monitor using NeerNaya IoT smart sensors.
+              <p className="text-gray-400">
+                Select water quality parameters to monitor using NeerNaya IoT
+                smart sensors.
               </p>
             </motion.div>
 
@@ -164,12 +185,16 @@ export default function Apply() {
                     `}
                   >
                     <div className="flex gap-5 items-start">
-                      <div className={`p-3 rounded-xl ${selected ? "bg-cyan-500/20" : "bg-white/5"}`}>
+                      <div
+                        className={`p-3 rounded-xl ${selected ? "bg-cyan-500/20" : "bg-white/5"}`}
+                      >
                         <Icon className="text-cyan-400" size={26} />
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-semibold mb-2">{param.name}</h3>
+                        <h3 className="text-lg font-semibold mb-2">
+                          {param.name}
+                        </h3>
                         <p className="text-gray-400 text-sm leading-relaxed">
                           {param.description}
                         </p>
@@ -212,7 +237,7 @@ export default function Apply() {
                 disabled={isSubmitting}
                 className="border-white/20 bg-white/5 hover:bg-white/10 text-white"
               >
-                <Link href="/">Back</Link>
+                <Link href="/user/devices">Back to Dashboard</Link>
               </Button>
 
               <Button
@@ -230,7 +255,6 @@ export default function Apply() {
                 )}
               </Button>
             </motion.div>
-
           </motion.div>
         </div>
       </div>

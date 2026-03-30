@@ -41,11 +41,12 @@ export default function AboutPage() {
     <div className="min-h-screen bg-[#050505] text-white">
       <Navbar />
 
-      <div className="px-6 md:px-10 py-24 max-w-7xl mx-auto">
+      <div className="px-6 md:px-10 md:py-24 py-15 max-w-7xl mx-auto">
         {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-linear-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text">

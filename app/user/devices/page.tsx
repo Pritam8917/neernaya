@@ -7,6 +7,7 @@ import { Plus } from "lucide-react";
 import { motion } from "framer-motion";
 import { LoaderOne } from "@/components/ui/loader";
 import { useRef } from "react";
+import Link from "next/link";
 import {
   BarChart,
   Bar,
@@ -18,7 +19,8 @@ import {
 } from "recharts";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { useRouter } from "next/navigation";
+import { Menu, X } from "lucide-react";
 type DeviceData = {
   name: string;
   value: number;
@@ -31,6 +33,7 @@ type Rule = {
 };
 
 export default function Devices() {
+  const router = useRouter();
   const units: Record<string, string> = {
     pH: "",
     Turbidity: "NTU",
@@ -196,34 +199,47 @@ export default function Devices() {
 
   if (loading) {
     return (
-      <>
+      <div className="min-h-screen bg-[#0A0A0A]"> 
         <Navbar />
         <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
           <div className="flex flex-col items-center gap-6">
             <LoaderOne />
           </div>
         </div>
-      </>
+      </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white">
-      <Navbar />
+    <main className="min-h-screen bg-[#0A0A0A] text-white">
+      <div className="hidden lg:block fixed top-0 left-0 w-full z-50">
+        <Navbar />
+      </div>
+      <div className="lg:hidden fixed top-2 rounded-full left-2 right-3 w- z-50 bg-black border border-white/15 px-7 py-4 flex items-center justify-between ">
+        <Link href="/" className="text-xl font-bold" style={{ fontFamily: "CinzelCustom" }}>NEERNAYA</Link>
 
-      <main className="min-h-screen bg-[#0A0A0A] text-white pt-20">
-        <div className="flex">
-          <div className="fixed left-0 top-20 h-[calc(100vh-5rem)] w-64 border-r border-white/10 bg-black z-40">
-            <UserSidebar />
-          </div>
+        {/* This button will trigger your existing sidebar */}
+        <button
+          onClick={() => {
+            const event = new CustomEvent("toggleSidebar");
+            window.dispatchEvent(event);
+          }}
+        >
+          <Menu className="hover:scale-110 transition cursor-pointer" size={24} />
+        </button>
+      </div>
 
-          <div className="flex-1 ml-72 px-8 py-10">
+      <div className="min-h-screen bg-[#0A0A0A] text-white pt-22 ">
+        <div className="relative">
+          <UserSidebar />
+
+          <div className="px-4 sm:px-6 py-6 sm:py-8 md:py-10 lg:ml-72">
             {/* HEADER */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="flex flex-col md:flex-row md:justify-between md:items-center mb-10 gap-4"
+              className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-8 gap-4"
             >
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">
@@ -259,7 +275,7 @@ export default function Devices() {
             </motion.div>
 
             {/* KPI CARDS */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-10">
               {currentValues.length === 0 ? (
                 <div className="col-span-full flex flex-col items-center justify-center py-16 text-center border border-white/10 rounded-xl bg-white/5">
                   <div className="w-16 h-16 flex items-center justify-center rounded-full bg-cyan-500/10 mb-4">
@@ -274,7 +290,10 @@ export default function Devices() {
                     quality.
                   </p>
 
-                  <Button className="bg-cyan-500 hover:bg-cyan-600 text-black flex items-center gap-2">
+                  <Button
+                    className="bg-cyan-500 hover:bg-cyan-600 text-black flex items-center gap-2"
+                    onClick={() => router.push("/user/apply")}
+                  >
                     <Plus size={14} />
                     Add Device
                   </Button>
@@ -287,7 +306,7 @@ export default function Devices() {
                   return (
                     <motion.div
                       key={i}
-                      className="bg-white/5 border border-white/10 rounded-xl p-5"
+                      className="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5 hover:border-cyan-400/30 transition"
                     >
                       {/* Parameter Name */}
                       <p className="text-sm text-gray-400">{item.name}</p>
@@ -321,7 +340,7 @@ export default function Devices() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.4 }}
-                className="bg-white/5 border border-white/10 rounded-xl p-6"
+                className="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-6 hidden lg:block"
               >
                 <h3 className="mb-4 text-lg font-semibold">
                   Current Parameter Snapshot
@@ -342,14 +361,17 @@ export default function Devices() {
                       real-time.
                     </p>
 
-                    <Button className="bg-cyan-500 hover:bg-cyan-600 text-black flex items-center gap-2">
+                    <Button
+                      className="bg-cyan-500 hover:bg-cyan-600 text-black flex items-center gap-2"
+                      onClick={() => router.push("/user/apply")}
+                    >
                       <Plus size={14} />
                       Add Device
                     </Button>
                   </div>
                 ) : (
                   // CHART
-                  <div className="h-72">
+                  <div className="h-64 sm:h-72 md:h-80">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={currentValues}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -365,7 +387,7 @@ export default function Devices() {
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }

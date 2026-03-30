@@ -72,12 +72,12 @@ export default function Services() {
       <Navbar />
 
       {/* HERO */}
-      <section className="max-w-7xl mx-auto px-4 py-24 text-center">
+      <section className="max-w-7xl mx-auto px-4 md:py-24 py-15 text-center">
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl md:text-5xl font-bold"
+          className="text-4xl md:text-5xl font-bold bg-linear-to-r from-cyan-400 to-blue-500 text-transparent bg-clip-text"
         >
           Smart Water IoT Services
         </motion.h1>
