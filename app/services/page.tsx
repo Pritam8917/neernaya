@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import {
   Activity,
@@ -15,7 +13,6 @@ import {
   Wifi,
   Mail,
   Package,
-  ArrowRight,
 } from "lucide-react";
 
 const services = [

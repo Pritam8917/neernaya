@@ -20,7 +20,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 type DeviceData = {
   name: string;
   value: number;
