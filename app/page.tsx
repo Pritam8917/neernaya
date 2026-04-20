@@ -157,14 +157,6 @@ export default function Home() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          variants={{
-            hidden: {},
-            show: {
-              transition: {
-                staggerChildren: 0.12,
-              },
-            },
-          }}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
           {services.map((service, i) => {
@@ -175,13 +167,9 @@ export default function Home() {
                 key={i}
                 variants={{
                   hidden: { opacity: 0, y: 40, scale: 0.95 },
-                  show: { opacity: 1, y: 0, scale: 1 },
+                  show: { opacity: 1, y: 0},
                 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                whileHover={{
-                  y: -6,
-                  scale: 1.02,
-                }}
                 className="
             p-5 sm:p-6 md:p-8
             rounded-xl
@@ -270,10 +258,10 @@ export default function Home() {
       {/* CTA */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 40 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true }}
+          // initial={{ opacity: 0, scale: 0.95, y: 40 }}
+          // whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          // transition={{ duration: 0.8, ease: "easeOut" }}
+          // viewport={{ once: true }}
           className="
       relative
       p-6 sm:p-10 md:p-16
@@ -288,8 +276,8 @@ export default function Home() {
         >
           {/* Animated Glow */}
           <motion.div
-            animate={{ opacity: [0.25, 0.5, 0.25] }}
-            transition={{ duration: 5, repeat: Infinity }}
+            // animate={{ opacity: [0.25, 0.5, 0.25] }}
+            // transition={{ duration: 5, repeat: Infinity }}
             className="
         absolute inset-0 rounded-3xl
         bg-linear-to-r from-cyan-400/10 via-blue-400/10 to-cyan-400/10
@@ -304,9 +292,9 @@ export default function Home() {
 
           {/* Heading */}
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            // initial={{ opacity: 0, y: 20 }}
+            // whileInView={{ opacity: 1, y: 0 }}
+            // transition={{ delay: 0.2 }}
             className="text-2xl sm:text-3xl md:text-5xl font-bold mb-5 sm:mb-6 leading-tight"
           >
             Secure Your Water Quality
@@ -317,9 +305,9 @@ export default function Home() {
 
           {/* Description */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35 }}
+            // initial={{ opacity: 0, y: 20 }}
+            // whileInView={{ opacity: 1, y: 0 }}
+            // transition={{ delay: 0.35 }}
             className="text-slate-300 mb-8 sm:mb-10 max-w-xl sm:max-w-2xl mx-auto text-sm sm:text-base md:text-lg"
           >
             Start monitoring your water quality in real time using intelligent
@@ -330,12 +318,14 @@ export default function Home() {
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            // initial={{ opacity: 0, y: 20 }}
+            // whileInView={{ opacity: 1, y: 0 }}
+            // transition={{ delay: 0.5 }}
             className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4"
           >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+            <motion.div 
+            // whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
+            >
               <Button
                 asChild
                 size="lg"
@@ -354,7 +344,9 @@ export default function Home() {
               </Button>
             </motion.div>
 
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+            <motion.div 
+            // whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
+            >
               <Button
                 asChild
                 size="lg"
